@@ -76,10 +76,15 @@ export default class Iphone extends Component {
 		this.setState({ display: false });
 	}
 	getPlaces = () => {
+		//API info: https://developers.google.com/places/web-service/search
+		var location = '51.5238447,-0.0404668';
+		var radius = '5000';
+		var type = 'park';
+		//supported types here: https://developers.google.com/places/web-service/supported_types
+		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
 		$.ajax({
-		 url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4',
+		 url: api_url,
 		 dataType: 'jsonp',
-		 type: 'GET',
 		 success : this.parseResponse,
 		 error : function(req, err){ console.log('API call failed ' + err); }
  });
