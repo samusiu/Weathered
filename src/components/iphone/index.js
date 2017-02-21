@@ -75,6 +75,15 @@ export default class Iphone extends Component {
 		// once the data grabbed, hide the button
 		this.setState({ display: false });
 	}
+	getPlaces = () => {
+		$.ajax({
+		 url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4',
+		 dataType: 'jsonp',
+		 type: 'GET',
+		 success : this.parseResponse,
+		 error : function(req, err){ console.log('API call failed ' + err); }
+ });
+	}
 
 	// the main render method for the iphone component
 	render() {
@@ -92,23 +101,14 @@ export default class Iphone extends Component {
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
-					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.initialize }/ > : null }
+					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.getPlaces }/ > : null }
 				</div>
 			</div>
 		);
 	}
 
 	parseResponse = (parsed_json) => {
-        //Variables to get form URL
-		var location = parsed_json['current_observation']['display_location']['city'];
-		var temp_c = parsed_json['current_observation']['temp_c'];
-		var conditions = parsed_json['current_observation']['weather'];
+		console.log('Success!!!!');
 
-		// set states for fields so they could be rendered later on
-		this.setState({
-			locate: location,
-			temp: temp_c,
-			cond : conditions
-		});
 	}
 }
