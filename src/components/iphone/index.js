@@ -19,6 +19,47 @@ export default class Iphone extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+		var map;
+	}
+
+	initialize() {
+		var center = new google.maps.LatLng(51.526806,-0.0419017);
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: center,
+			zoom: 13
+		});
+
+		var request1 = {
+			location: center,
+			radius: 8000,
+			types: ['restaurant']
+		};
+		var request2 = {
+			location: center,
+			radius: 8000,
+			types: ['park']
+		};
+
+		var service = new google.maps.places.PlacesService(map);
+
+		service.nearbySearch(request1, callback);
+		service.nearbySearch(request2, callback);
+	}
+
+	callback(result, status) {
+		if(status == google.maps.places.PlacesServiceStatus.OK){
+			for(var i = 0; i < result.length; i++){
+				createMarker(result[i]);
+			}
+		}
+	}
+
+	createMarker(place){
+		var placeLoc = place.geometry.location;
+		var marker = new google.maps.Marker({
+			map: map,
+			position: place.geometry.location
+		});
 	}
 
 	// a call to fetch weather data via wunderground
@@ -46,11 +87,12 @@ export default class Iphone extends Component {
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
+					<div id="map"></div>
 					<span class={ tempStyles }>{ this.state.temp }</span>
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
-					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null }
+					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.initialize }/ > : null }
 				</div>
 			</div>
 		);
