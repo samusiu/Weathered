@@ -75,20 +75,6 @@ export default class Iphone extends Component {
 		// once the data grabbed, hide the button
 		this.setState({ display: false });
 	}
-	getPlaces = () => {
-		//API info: https://developers.google.com/places/web-service/search
-		var location = '51.5238447,-0.0404668';
-		var radius = '5000';
-		var type = 'park';
-		//supported types here: https://developers.google.com/places/web-service/supported_types
-		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
-		$.ajax({
-		 url: api_url,
-		 dataType: 'jsonp',
-		 success : this.parseResponse,
-		 error : function(req, err){ console.log('API call failed ' + err); }
- });
-	}
 
 	// the main render method for the iphone component
 	render() {
@@ -106,14 +92,23 @@ export default class Iphone extends Component {
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
-					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.getPlaces }/ > : null }
+					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.initialize }/ > : null }
 				</div>
 			</div>
 		);
 	}
 
 	parseResponse = (parsed_json) => {
-		console.log('Success!!!!');
+        //Variables to get form URL
+		var location = parsed_json['current_observation']['display_location']['city'];
+		var temp_c = parsed_json['current_observation']['temp_c'];
+		var conditions = parsed_json['current_observation']['weather'];
 
+		// set states for fields so they could be rendered later on
+		this.setState({
+			locate: location,
+			temp: temp_c,
+			cond : conditions
+		});
 	}
 }
