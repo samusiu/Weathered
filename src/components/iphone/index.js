@@ -24,7 +24,7 @@ export default class Iphone extends Component {
 
 	initialize() {
 		var center = new google.maps.LatLng(51.526806,-0.0419017);
-		map = new google.maps.Map(document.getElementById('map'), {
+		this.map = new google.maps.Map(document.getElementById('map'), {
 			center: center,
 			zoom: 13
 		});
@@ -42,8 +42,8 @@ export default class Iphone extends Component {
 
 		var service = new google.maps.places.PlacesService(map);
 
-		service.nearbySearch(request1, callback);
-		service.nearbySearch(request2, callback);
+		service.nearbySearch(request1, this.callback);
+		service.nearbySearch(request2, this.callback);
 	}
 
 	callback(result, status) {
