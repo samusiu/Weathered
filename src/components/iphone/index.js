@@ -84,7 +84,7 @@ export default class Iphone extends Component {
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
 		$.ajax({
 		 url: api_url,
-		 dataType: 'jsonp',
+		 dataType: 'json',
 		 success : this.parseResponse,
 		 error : function(req, err){ console.log('API call failed ' + err); }
  });
@@ -114,6 +114,7 @@ export default class Iphone extends Component {
 
 	parseResponse = (parsed_json) => {
 		console.log('Success!!!!');
+		console.log(parsed_json);
 
 	}
 }
