@@ -8,6 +8,7 @@ import style_iphone from '../button/style_iphone';
 import $ from 'jquery';
 // import the Button component
 import Button from '../button';
+import Map from '../map';
 
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
@@ -29,6 +30,7 @@ export default class Iphone extends Component {
 			zoom: 13
 		});
 
+		google.maps.event.addDomListener(window, 'load', this.initialize);
 		var request1 = {
 			location: center,
 			radius: 8000,
@@ -84,13 +86,7 @@ export default class Iphone extends Component {
 		// display all weather data
 		return (
 			<div class={ style.container }>
-				<div class={ style.header }>
-					<div class={ style.city }>{ this.state.locate }</div>
-					<div class={ style.conditions }>{ this.state.cond }</div>
-					<div id="map"></div>
-					<span class={ tempStyles }>{ this.state.temp }</span>
-				</div>
-				<div class={ style.details }></div>
+			<Map class={style_iphone.map}/>
 				<div class= { style_iphone.container }>
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.initialize }/ > : null }
 				</div>
