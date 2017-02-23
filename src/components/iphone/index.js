@@ -22,44 +22,25 @@ export default class Iphone extends Component {
 		var map;
 	}
 
-	initialize() {
-		var center = new google.maps.LatLng(51.526806,-0.0419017);
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: center,
-			zoom: 13
-		});
-
-		var request1 = {
-			location: center,
-			radius: 8000,
-			types: ['restaurant']
-		};
-		var request2 = {
-			location: center,
-			radius: 8000,
-			types: ['park']
-		};
-
-		var service = new google.maps.places.PlacesService(map);
-
-		service.nearbySearch(request1, callback);
-		service.nearbySearch(request2, callback);
-	}
-
-	callback(result, status) {
-		if(status == google.maps.places.PlacesServiceStatus.OK){
-			for(var i = 0; i < result.length; i++){
-				createMarker(result[i]);
+	initialize(parsed_json) {
+		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
+			var center = new google.maps.LatLng(51.526806,-0.0419017);
+			this.map = new google.maps.Map(document.getElementById('map'), {
+				center: center,
+				zoom: 13
+			});
+			var place;
+			for(var i = 0; i < parsed_json.results.length; i++){
+				place = parsed_json.results[i];
+				var placeLoc = place.geometry.location;
+				var marker = new google.maps.Marker({
+					map: this.map,
+					position: place.geometry.location
+				});
 			}
+		}else {
+			console.log("Invalid json");
 		}
-	}
-
-	createMarker(place){
-		var placeLoc = place.geometry.location;
-		var marker = new google.maps.Marker({
-			map: map,
-			position: place.geometry.location
-		});
 	}
 
 	// a call to fetch weather data via wunderground
@@ -85,11 +66,15 @@ export default class Iphone extends Component {
 		$.ajax({
 		 url: api_url,
 		 dataType: 'json',
-		 success : this.parseResponse,
+		 success : this.initialize,
 		 error : function(req, err){ console.log('API call failed ' + err); }
  });
 	}
 
+	createMap(parsed_json){
+		initialize(parsed_json);
+		google.maps.event.addDomListener(window, 'load', initialize);
+	}
 	// the main render method for the iphone component
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
@@ -101,20 +86,14 @@ export default class Iphone extends Component {
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
-					<div id="map"></div>
 					<span class={ tempStyles }>{ this.state.temp }</span>
 				</div>
+				<div id="map" style="height: 100%"></div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.getPlaces }/ > : null }
 				</div>
 			</div>
 		);
-	}
-
-	parseResponse = (parsed_json) => {
-		console.log('Success!!!!');
-		console.log(parsed_json);
-
 	}
 }
