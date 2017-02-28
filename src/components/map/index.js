@@ -8,6 +8,7 @@ export default class Map extends Component {
 		return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div id="map" style="height:200%">
 =======
 			<div id="map">
@@ -15,6 +16,9 @@ export default class Map extends Component {
 =======
 			<div id="map" style="height:200%">
 >>>>>>> Oliver
+=======
+			<div id="map">
+>>>>>>> map-with-pinned-locations
 			</div>
 		);
 	}

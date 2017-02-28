@@ -25,6 +25,7 @@ export default class Iphone extends Component {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Oliver
 	initialize() {
@@ -58,6 +59,8 @@ export default class Iphone extends Component {
 				createMarker(result[i]);
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> map-with-pinned-locations
 	initialize(parsed_json) {
 		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
 			var center = new google.maps.LatLng(51.526806,-0.0419017);
@@ -73,16 +76,22 @@ export default class Iphone extends Component {
 					map: this.map,
 					position: place.geometry.location
 				});
+<<<<<<< HEAD
 >>>>>>> map-with-pinned-locations
 			}
 		}else {
 			console.log("Invalid json");
 		}
 =======
+=======
+>>>>>>> map-with-pinned-locations
 			}
+		}else {
+			console.log("Invalid json");
 		}
 	}
 
+<<<<<<< HEAD
 	createMarker(place){
 		var placeLoc = place.geometry.location;
 		var marker = new google.maps.Marker({
@@ -92,6 +101,8 @@ export default class Iphone extends Component {
 >>>>>>> Oliver
 	}
 
+=======
+>>>>>>> map-with-pinned-locations
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : http://api.wunderground.com/api/key/feature/q/country-code/city.json
@@ -157,6 +168,7 @@ export default class Iphone extends Component {
 		);
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
@@ -171,6 +183,8 @@ export default class Iphone extends Component {
 			cond : conditions
 		});
 	}
+=======
+>>>>>>> map-with-pinned-locations
 =======
 >>>>>>> map-with-pinned-locations
 }
