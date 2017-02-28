@@ -24,6 +24,9 @@ export default class Iphone extends Component {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Oliver
 	initialize() {
 		var center = new google.maps.LatLng(51.526806,-0.0419017);
 		this.map = new google.maps.Map(document.getElementById('map'), {
@@ -53,6 +56,7 @@ export default class Iphone extends Component {
 		if(status == google.maps.places.PlacesServiceStatus.OK){
 			for(var i = 0; i < result.length; i++){
 				createMarker(result[i]);
+<<<<<<< HEAD
 =======
 	initialize(parsed_json) {
 		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
@@ -74,6 +78,18 @@ export default class Iphone extends Component {
 		}else {
 			console.log("Invalid json");
 		}
+=======
+			}
+		}
+	}
+
+	createMarker(place){
+		var placeLoc = place.geometry.location;
+		var marker = new google.maps.Marker({
+			map: map,
+			position: place.geometry.location
+		});
+>>>>>>> Oliver
 	}
 
 	// a call to fetch weather data via wunderground
@@ -120,6 +136,7 @@ export default class Iphone extends Component {
 		return (
 			<div class={ style.container }>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<Map class={style_iphone.map}/>
 =======
 				<div class={ style.header }>
@@ -130,6 +147,9 @@ export default class Iphone extends Component {
 				<Map style="height: 100%"/>
 				<div class={ style.details }></div>
 >>>>>>> map-with-pinned-locations
+=======
+			<Map class={style_iphone.map}/>
+>>>>>>> Oliver
 				<div class= { style_iphone.container }>
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.initialize }/ > : null }
 				</div>

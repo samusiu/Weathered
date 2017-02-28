@@ -7,10 +7,14 @@ export default class Map extends Component {
 	render() {
 		return (
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div id="map" style="height:200%">
 =======
 			<div id="map">
 >>>>>>> map-with-pinned-locations
+=======
+			<div id="map" style="height:200%">
+>>>>>>> Oliver
 			</div>
 		);
 	}
