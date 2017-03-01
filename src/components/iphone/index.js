@@ -46,7 +46,12 @@ export default class Iphone extends Component {
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
+					<div>{ this.state.precipLabel }</div>
+					<div>{ this.state.humidLabel }</div>
+					<div>{ this.state.precip }</div>
+					<div>{ this.state.humid }</div>
 					<span class={ tempStyles }>{ this.state.temp }</span>
+					<img src={'../../assets/icons/favicon-32x32.png'}/>
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
@@ -61,12 +66,18 @@ export default class Iphone extends Component {
 		var location = parsed_json['current_observation']['display_location']['city'];
 		var temp_c = parsed_json['current_observation']['temp_c'];
 		var conditions = parsed_json['current_observation']['weather'];
+		var precipitation = parsed_json['current_observation']["precip_today_metric"];
+		var humidity = parsed_json['current_observation']["relative_humidity"];
 
 		// set states for fields so they could be rendered later on
 		this.setState({
 			locate: location,
 			temp: temp_c,
-			cond : conditions
+			cond : conditions,
+			precipLabel : "Precipitation: ",
+			humidLabel : "Humidity: ",
+			precip : precipitation,
+			humid : humidity
 		});
 	}
 }
