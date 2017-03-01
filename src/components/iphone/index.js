@@ -24,7 +24,7 @@ export default class Iphone extends Component {
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : http://api.wunderground.com/api/key/feature/q/country-code/city.json
-		var url = "http://api.wunderground.com/api/2b086976e181feb2/conditions/q/UK/London.json";
+		var url = "https://api.darksky.net/forecast/18fd0928fdde0a015b26a293ba8b91ac/51.5074,0.1278";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -46,7 +46,8 @@ export default class Iphone extends Component {
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
-					<span class={ tempStyles }>{ this.state.temp }</span>
+					<div class={ style.conditions }>{ this.state.temp }</div>
+
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
@@ -56,17 +57,44 @@ export default class Iphone extends Component {
 		);
 	}
 
+	toCelsius(f) {
+	    return (5/9) * (f-32);
+	}
+
+
+
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
-		var location = parsed_json['current_observation']['display_location']['city'];
-		var temp_c = parsed_json['current_observation']['temp_c'];
-		var conditions = parsed_json['current_observation']['weather'];
-
+		var location = parsed_json.timezone;
+		var temp_f = parsed_json.currently.temperature;
+		var conditions = parsed_json.currently.summary;
+		var humidity = parsed_json.currently.humidity;
+		//get current month/day/weekday
+		var date = new Date((parsed_json.currently.time)*1000);
+		var date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
+		//store 5 hourly forecasts in an array
+		var hourly_precip = [];
+		var hourly_time = [];
+		var hourly_temp = [];
+		var hourly_conditions = [];
+		//start at 1 since index 0 is current time
+		for (var i = 1; i<6; i++){
+			var hour = new Date(parsed_json.hourly.data[i]['time']*1000);
+			//converts timestamp into am/pm time
+			hourly_time[i] = hour.toLocaleString('en-UK', { hour: 'numeric', hour12: true });
+			var f = parsed_json.hourly.data[i]['temperature'];
+			hourly_temp[i] = Math.round((5/9) * (f-32));
+			hourly_conditions[i] = parsed_json.hourly.data[i]['summary'];
+			hourly_precip[i] = parsed_json.hourly.data[i].precipProbability;
+		}
+console.log(hourly_temp);
 		// set states for fields so they could be rendered later on
 		this.setState({
 			locate: location,
-			temp: temp_c,
-			cond : conditions
+			temp: temp_f,
+			cond : conditions,
+			humidity : humidity,
+			date : date
 		});
 	}
 }
