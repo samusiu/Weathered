@@ -46,14 +46,6 @@ export default class Iphone extends Component {
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
-<<<<<<< HEAD
-					<div>{ this.state.precipLabel }</div>
-					<div>{ this.state.humidLabel }</div>
-					<div>{ this.state.precip }</div>
-					<div>{ this.state.humid }</div>
-					<span class={ tempStyles }>{ this.state.temp }</span>
-					<img src={'../../assets/icons/favicon-32x32.png'}/>
-=======
 					<div class={ style.conditions }>{ this.state.temp }</div>
 					<div class={ style.conditions }>{ this.state.date }</div>
 					<div class={ style.conditions }>{ this.state.humidity }</div>
@@ -73,10 +65,6 @@ export default class Iphone extends Component {
 					<div class={ style.conditions }>{ this.state.hour5 }</div>
 					<div class={ style.conditions }>{ this.state.hour5temp }</div>
 					<div class={ style.conditions }>{ this.state.hour5conditions }</div>
-
-
-
->>>>>>> Sam
 				</div>
 				<div class={ style.details }></div>
 				<div class= { style_iphone.container }>
@@ -94,14 +82,6 @@ export default class Iphone extends Component {
 
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
-<<<<<<< HEAD
-		var location = parsed_json['current_observation']['display_location']['city'];
-		var temp_c = parsed_json['current_observation']['temp_c'];
-		var conditions = parsed_json['current_observation']['weather'];
-		var precipitation = parsed_json['current_observation']["precip_today_metric"];
-		var humidity = parsed_json['current_observation']["relative_humidity"];
-
-=======
 		var location = parsed_json.timezone;
 		var temp_f = parsed_json.currently.temperature;
 		var temp_c = Math.round((5/9) * (temp_f-32));
@@ -126,19 +106,12 @@ export default class Iphone extends Component {
 			hourly_conditions[i] = parsed_json.hourly.data[i]['summary'];
 			hourly_precip[i] = parsed_json.hourly.data[i].precipProbability;
 		}
->>>>>>> Sam
 		// set states for fields so they could be rendered later on
 		//need high/low
 		this.setState({
 			locate: location,
 			temp: temp_c,
 			cond : conditions,
-<<<<<<< HEAD
-			precipLabel : "Precipitation: ",
-			humidLabel : "Humidity: ",
-			precip : precipitation,
-			humid : humidity
-=======
 			humidity : humidity,
 			date : date,
 			precip : current_precip,
@@ -157,7 +130,6 @@ export default class Iphone extends Component {
 			hour3: hourly_time[3],
 			hour4: hourly_time[4],
 			hour5: hourly_time[5]
->>>>>>> Sam
 		});
 	}
 }
