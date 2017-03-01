@@ -9,7 +9,7 @@ export default class Button extends Component {
 			clickFunction = () => {
 				console.log("passed something as 'clickFunction' that wasn't a function !");
 			}
-		}	
+		}
 		return (
 			<div>
 				<button onClick={clickFunction}>
