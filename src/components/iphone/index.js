@@ -47,6 +47,26 @@ export default class Iphone extends Component {
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class={ style.conditions }>{ this.state.cond }</div>
 					<div class={ style.conditions }>{ this.state.temp }</div>
+					<div class={ style.conditions }>{ this.state.date }</div>
+					<div class={ style.conditions }>{ this.state.humidity }</div>
+					<div class={ style.conditions }>{ this.state.precip }</div>
+					<div class={ style.conditions }>{ this.state.hour1 }</div>
+					<div class={ style.conditions }>{ this.state.hour1temp }</div>
+					<div class={ style.conditions }>{ this.state.hour1conditions }</div>
+					<div class={ style.conditions }>{ this.state.hour2 }</div>
+					<div class={ style.conditions }>{ this.state.hour2temp }</div>
+					<div class={ style.conditions }>{ this.state.hour2conditions }</div>
+					<div class={ style.conditions }>{ this.state.hour3 }</div>
+					<div class={ style.conditions }>{ this.state.hour3temp }</div>
+					<div class={ style.conditions }>{ this.state.hour3conditions }</div>
+					<div class={ style.conditions }>{ this.state.hour4 }</div>
+					<div class={ style.conditions }>{ this.state.hour4temp }</div>
+					<div class={ style.conditions }>{ this.state.hour4conditions }</div>
+					<div class={ style.conditions }>{ this.state.hour5 }</div>
+					<div class={ style.conditions }>{ this.state.hour5temp }</div>
+					<div class={ style.conditions }>{ this.state.hour5conditions }</div>
+
+
 
 				</div>
 				<div class={ style.details }></div>
@@ -67,8 +87,10 @@ export default class Iphone extends Component {
         //Variables to get form URL
 		var location = parsed_json.timezone;
 		var temp_f = parsed_json.currently.temperature;
+		var temp_c = Math.round((5/9) * (temp_f-32));
 		var conditions = parsed_json.currently.summary;
-		var humidity = parsed_json.currently.humidity;
+		var humidity = parsed_json.currently.humidity*100 + "%";
+		var current_precip = Math.round(parsed_json.currently.precipIntensity*100) + "%";
 		//get current month/day/weekday
 		var date = new Date((parsed_json.currently.time)*1000);
 		var date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
@@ -87,14 +109,30 @@ export default class Iphone extends Component {
 			hourly_conditions[i] = parsed_json.hourly.data[i]['summary'];
 			hourly_precip[i] = parsed_json.hourly.data[i].precipProbability;
 		}
-console.log(hourly_temp);
 		// set states for fields so they could be rendered later on
+		//need high/low
 		this.setState({
 			locate: location,
-			temp: temp_f,
+			temp: temp_c,
 			cond : conditions,
 			humidity : humidity,
-			date : date
+			date : date,
+			precip : current_precip,
+			hour1temp: hourly_temp[1],
+			hour2temp: hourly_temp[2],
+			hour3temp: hourly_temp[3],
+			hour4temp: hourly_temp[4],
+			hour5temp: hourly_temp[5],
+			hour1conditions: hourly_conditions[1],
+			hour2conditions: hourly_conditions[2],
+			hour3conditions: hourly_conditions[3],
+			hour4conditions: hourly_conditions[4],
+			hour5conditions: hourly_conditions[5],
+			hour1: hourly_time[1],
+			hour2: hourly_time[2],
+			hour3: hourly_time[3],
+			hour4: hourly_time[4],
+			hour5: hourly_time[5]
 		});
 	}
 }
