@@ -1,46 +1,160 @@
 @import '~style/helpers';
 
 .container {
-	display: flex;
 	flex-direction: column;
-	background-image: url('../../assets/backgrounds/clear-iphone.jpg');
-	color: #fff;
 	width: 414px;
 	height: 736px;
-	text-align: center;
-	padding-top: 80px;
-	margin: 0 auto;
 }
-.header {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
+body{
+    background-color: #39528C;
+    font-family: 'Open Sans', sans-serif;
 }
-.details {
-	flex: 4;
+.top{
+    width: 414px;
+    height: 40px;
+    background-color: #CCD4E1;
+    display: flex;
+    color: #000;
+}
+.bars {
+    width:35px;
+    height:30px;
+    margin: 5px 0 0 5px;
+}
+.dot{
+    width:12px;
+    height:12px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.dots{
+    margin: auto;
+}
+.main{
+    height: 666px;
+    width: 414px;
+    padding: 0;
+}
+
+.head{
+    padding-top: 1.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 100%;
+    display: flex;
+}
+.head-left{
+    float: left;
+    margin: 0 0 10px 20px;
+}
+.head-right{
+    float: right;
+    margin: 10px 0 10px 90px;
 }
 .city {
 	flex: 1;
-	font-size: 1.7em;
+	font-size: 36px;
+    color: #fff;
 	font-weight: 400;
 }
-.conditions {
-	flex: 1;
-	font-size: 1em;
+.date, .text{
+    font-size: 18px;
+    color: #fff;
 }
 .temperature {
-	flex: 2;
-	margin-top: 0;
-	font-size: 4.8em;
-	font-weight: 300;
-	letter-spacing: -12px;
+    margin: 10px 0 10px 90px;
+    font-size: 42px;
+    color: #D4B845;
 }
-.filled:after {
-	content: "°";
-	margin: 0 0 0 1rem;
-	font-size: 0.5em;
-	font-weight: 100;
-	display: inline-block;
-	padding-top: 10px;
-	vertical-align: top;
+
+.center{
+    padding: 1.5em 0 2.5em 0;
+    display: table;
+    margin: auto;
+}
+.weatherimg {
+    width: 35%;
+    height: auto;
+    display:block;
+    margin:auto;
+}
+.condition{
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+}
+
+.info{
+    display:table;
+    margin: auto;
+    text-align: center;
+}
+.label1{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 10px; 
+}
+.label2{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.precip, .humid{
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.hourly{
+    margin-top: 50px;
+    margin-left: 18px;
+    width: 414px;
+    height: 45px;
+    display: flex;
+}
+
+.hour{
+    display:flex;
+    margin: auto;
+    text-align: center;
+}
+
+.line{
+    width: 414px;
+    height: 7px;
+    background-color: #CCD4E1;
+    color: #000;
+    margin-bottom:10px;
+}
+.hours{
+    width: 414px;
+    height: auto;
+    display: flex;
+}
+
+
+.conditions {
+    color: #fff;
+	font-size: 1em;
+}
+.smallimg{
+    width: 35%;
+    height: 35%;
+    margin-right: 5px;
+}
+
+.iconarrow{
+    width:30px;
+    height:20px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+.foot{
+    position:absolute;
+    bottom:0;
+    width:414px;
+    height:30px;
+    background-color: #CCD4E1;
 }

@@ -1,5 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
+import style from './style';
 
 export default class Button extends Component {
 
@@ -12,7 +13,7 @@ export default class Button extends Component {
 		}
 		return (
 			<div>
-				<button onClick={clickFunction}>
+				<button class={style.button} onClick={clickFunction}>
 					Recommendations
 				</button>
 			</div>

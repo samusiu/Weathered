@@ -4,6 +4,7 @@ import { h, render, Component } from 'preact';
 import $ from 'jquery';
 import Button from '../button';
 import Iphone from '../iphone';
+import style from './style2';
 export default class Map extends Component {
 
 	constructor(props){
@@ -16,6 +17,7 @@ export default class Map extends Component {
 		var location = '51.5238447,-0.0404668';
 		var radius = '5000';
 		var type = 'park';
+        var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
 		$.ajax({
@@ -23,7 +25,7 @@ export default class Map extends Component {
 		 dataType: 'json',
 		 success : this.createMap,
 		 error : function(req, err){ console.log('API call failed ' + err); }
- });
+        });
 	}
 
 	createMap = (parsed_json) => {
@@ -54,18 +56,26 @@ export default class Map extends Component {
 			console.log("Invalid json");
 		}
 	}
-
-
+        
+        
 	render() {
 		this.getPlaces();
 		return (
-			<div>
-				<Button clickFunction={ this.props.text }/ >
-				<div id="map" style="height:200px"></div>
-		    <div id="right-panel">
-		      <ul id="places"></ul>
-		    </div>
-			</div>
+			<div class={style.container}>
+                <div class={style.top}>
+                    <Button class={style.button} clickFunction={ this.props.text }/ >
+                </div>
+                
+                <div class={style.main}>
+                    <div style="height:200px" id="map" class={style.map}></div> 
+            
+                    <ul class={style.recs} id="places"></ul>
+                </div>
+            
+                <div class={style.foot}>
+                    
+                </div>
+            </div>
 		);
 	}
 }

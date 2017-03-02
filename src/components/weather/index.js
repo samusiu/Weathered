@@ -52,14 +52,14 @@ export default class Weather extends Component {
 			case "fog":
 				return "../../assets/images/Fog.png";
 				break;
-			case "cloud":
+			case "cloudy":
 				return "../../assets/images/Cloud.png";
 				break;
 			case "partly-cloudy-day":
 				return "../../assets/images/PartlyCloud.png";
 				break;
 			case "partly-cloudy-night":
-				return "../../assets/images/PartlyCloudNight.png";
+				return "../../assets/images/PartlyCloud.png";
 				break;
 			case "rain":
 			case "sleet":
@@ -79,7 +79,6 @@ export default class Weather extends Component {
 		var conditions = parsed_json.currently.summary;
 		var humidity = parsed_json.currently.humidity*100 + "%";
 		var current_precip = Math.round(parsed_json.currently.precipIntensity*100) + "%";
-
 		//get current month/day/weekday
 		var date = new Date((parsed_json.currently.time)*1000);
 		var date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
@@ -102,17 +101,24 @@ export default class Weather extends Component {
 		//need high/low
 		this.setState({
 			locate: location,
-			temp: temp_c,
+			temp: temp_c + "°",
 			cond : conditions,
 			humidity : humidity,
 			date : date,
 			precip : current_precip,
-			icon : this.setIcon(parsed_json.currently.icon),
-			hour1temp: hourly_temp[1],
-			hour2temp: hourly_temp[2],
-			hour3temp: hourly_temp[3],
-			hour4temp: hourly_temp[4],
-			hour5temp: hourly_temp[5],
+            preciplabel: "Precipitation: ",
+            humidlabel: "Humidity: ",
+            icon : this.setIcon(parsed_json.currently.icon),
+            hour1con : this.setIcon(parsed_json.hourly.icon),
+            hour2con : this.setIcon(parsed_json.hourly.icon),
+            hour3con : this.setIcon(parsed_json.hourly.icon),
+            hour4con : this.setIcon(parsed_json.hourly.icon),
+            hour5con : this.setIcon(parsed_json.hourly.icon),
+			hour1temp: hourly_temp[1] + "°",
+			hour2temp: hourly_temp[2] + "°",
+			hour3temp: hourly_temp[3] + "°",
+			hour4temp: hourly_temp[4] + "°",
+			hour5temp: hourly_temp[5] + "°",
 			hour1conditions: hourly_conditions[1],
 			hour2conditions: hourly_conditions[2],
 			hour3conditions: hourly_conditions[3],
@@ -122,7 +128,14 @@ export default class Weather extends Component {
 			hour2: hourly_time[2],
 			hour3: hourly_time[3],
 			hour4: hourly_time[4],
-			hour5: hourly_time[5]
+			hour5: hourly_time[5], 
+            bars: "../../assets/images/Bars.png",
+            dote: "../../assets/images/Empty.png",
+            dot1: "../../assets/images/Filled.png",
+            dot2: "../../assets/images/Filled.png",
+            dot3: "../../assets/images/Filled.png",
+            dot4: "../../assets/images/Filled.png", 
+            up: "../../assets/images/Up.png"
 		});
 	}
 
@@ -133,30 +146,97 @@ export default class Weather extends Component {
 			// display all weather data
 			return (
 				<div class={ style.container }>
-					<div class={ style.header }>
-						<div class={ style.city }>{ this.state.locate }</div>
-						<img src= {this.state.icon}/>
-						<div class={ style.conditions }>{ this.state.cond }</div>
-						<div class={ style.conditions }>{ this.state.temp }</div>
-						<div class={ style.conditions }>{ this.state.date }</div>
-						<div class={ style.conditions }>{ this.state.humidity }</div>
-						<div class={ style.conditions }>{ this.state.precip }</div>
-						<div class={ style.conditions }>{ this.state.hour1 }</div>
-						<div class={ style.conditions }>{ this.state.hour1temp }</div>
-						<div class={ style.conditions }>{ this.state.hour1conditions }</div>
-						<div class={ style.conditions }>{ this.state.hour2 }</div>
-						<div class={ style.conditions }>{ this.state.hour2temp }</div>
-						<div class={ style.conditions }>{ this.state.hour2conditions }</div>
-						<div class={ style.conditions }>{ this.state.hour3 }</div>
-						<div class={ style.conditions }>{ this.state.hour3temp }</div>
-						<div class={ style.conditions }>{ this.state.hour3conditions }</div>
-						<div class={ style.conditions }>{ this.state.hour4 }</div>
-						<div class={ style.conditions }>{ this.state.hour4temp }</div>
-						<div class={ style.conditions }>{ this.state.hour4conditions }</div>
-						<div class={ style.conditions }>{ this.state.hour5 }</div>
-						<div class={ style.conditions }>{ this.state.hour5temp }</div>
-						<div class={ style.conditions }>{ this.state.hour5conditions }</div>
-					</div>
+                    <div class={style.top}>
+                        <img class={style.bars} src={this.state.bars}/>
+                        <div class={style.dots}>
+                            <img class={style.dot} src={this.state.dote}/>
+                            <img class={style.dot} src={this.state.dot1}/>
+                            <img class={style.dot} src={this.state.dot2}/>
+                            <img class={style.dot} src={this.state.dot3}/>
+                            <img class={style.dot} src={this.state.dot4}/>
+                        </div>
+                     </div>
+                
+                    <div class={style.main}>
+                        <div  class={ style.head }> 
+                            <div class={style.headleft}>
+                                <div class={ style.city }>{ this.state.locate }</div>
+                                <div class={ style.date }>{ this.state.date }</div>
+                            </div>
+                            <div class={style.headright}>
+						      <div class={ style.temperature }>{ this.state.temp }</div>
+                            </div>
+                        </div>
+                        
+                        <div class={style.center}>
+                            <img class={style.weatherimg} src={this.state.icon}/>
+                            <div class={ style.condition }>{ this.state.cond }</div>
+                        </div>
+                        
+                        <div class={style.info}>
+                            <div class={ style.precip }>
+                                <div class={ style.label1 }>{ this.state.preciplabel }</div>
+                                <div class={ style.text }>{ this.state.precip }</div>
+                            </div>    
+
+                            <div class={ style.humid }>
+                                <div class={ style.label2 }>{ this.state.humidlabel }</div>
+                                <div class={ style.text }>{ this.state.humidity }</div>
+                            </div>	
+                        </div>
+                        
+                        <div class={style.hourly}>
+                            <div class={style.hour}>
+                                <img class={style.smallimg} src={this.state.hour1con}/>
+                                <div class={ style.conditions }>{ this.state.hour1temp }</div>
+                            </div>
+
+                            <div class={style.hour}>
+                                <img class={style.smallimg} src={this.state.hour2con}/>
+                                <div class={ style.conditions }>{ this.state.hour2temp }</div>
+                            </div>
+
+                            <div class={style.hour}>
+                                <img class={style.smallimg} src={this.state.hour3con}/>
+                                <div class={ style.conditions }>{ this.state.hour3temp }</div>
+                            </div>
+
+                            <div class={style.hour}>
+                                <img class={style.smallimg} src={this.state.hour4con}/>
+                                <div class={ style.conditions }>{ this.state.hour4temp }</div>
+                            </div>
+
+                            <div class={style.hour}>
+                                <img class={style.smallimg} src={this.state.hour5con}/>
+                                <div class={ style.conditions }>{ this.state.hour5temp }</div>
+                            </div>
+                        </div>
+                
+                        <div class={style.line}>
+                        </div>
+                
+                        <div class={style.hours}>
+                            <div class={style.hour}>
+                                <div class={ style.conditions }>{ this.state.hour1 }</div>
+                            </div>
+                            <div class={style.hour}>
+                                <div class={ style.conditions }>{ this.state.hour2 }</div>
+                            </div>
+                            <div class={style.hour}>
+                                <div class={ style.conditions }>{ this.state.hour3 }</div>
+                            </div>
+                            <div class={style.hour}>
+                                <div class={ style.conditions }>{ this.state.hour4 }</div>
+                            </div>
+                            <div class={style.hour}>
+                                <div class={ style.conditions }>{ this.state.hour5 }</div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class={style.foot}>
+                        <img class={style.iconarrow} src={this.state.up}/>
+                    </div>
 				</div>
 		);
 	}
