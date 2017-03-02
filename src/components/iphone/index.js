@@ -9,6 +9,7 @@ import $ from 'jquery';
 // import the Button component
 import Button from '../button';
 import Weather from '../weather';
+import Map from '../map';
 
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
@@ -17,15 +18,29 @@ export default class Iphone extends Component {
 	constructor(props){
 		super(props);
 		this.setState({ display: true });
+		this.setState({ rec: false });
+		var map;
 	}
 
-	changeDisplay = () => {
-		this.setState({ display: false });
+	generateMap = () => {
+		if (this.state.rec == false) {
+			this.setState({rec : true});
+			this.setState({display : false});
+		}
+		else {
+			this.setState({rec : false});
+			this.setState({display : true});
+
+		}
 	}
 
 	render() {
 		return (
-			<Weather/>
+			<div>
+				<Weather/>
+				{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.generateMap }/ > : null }
+				{ this.state.rec ? <Map text={this.generateMap}/> : null}
+			</div>
 		);
 	}
 }
