@@ -37,8 +37,9 @@ export default class Iphone extends Component {
 	render() {
 		return (
 			<div>
-				<Weather/>
+
 				{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.generateMap }/ > : null }
+				{this.state.rec ? null : <Weather/>}
 				{ this.state.rec ? <Map text={this.generateMap}/> : null}
 			</div>
 		);
