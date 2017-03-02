@@ -22,7 +22,7 @@ export default class Iphone extends Component {
 		var map;
 	}
 
-	generateMap = () => {
+	visualiseMap = () => {
 		if (this.state.rec == false) {
 			this.setState({rec : true});
 			this.setState({display : false});
@@ -37,10 +37,9 @@ export default class Iphone extends Component {
 	render() {
 		return (
 			<div>
-
-				{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.generateMap }/ > : null }
+				{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
 				{this.state.rec ? null : <Weather/>}
-				{ this.state.rec ? <Map text={this.generateMap}/> : null}
+				{ this.state.rec ? <Map text={this.generateMap} /> : null}
 			</div>
 		);
 	}

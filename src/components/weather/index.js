@@ -35,7 +35,41 @@ export default class Weather extends Component {
 	    return (5/9) * (f-32);
 	}
 
+	setIcon = (condition) => {
+		switch (condition) {
+			case "clear-day":
+				return "../../assets/images/Sun.png";
+				break;
+			case "clear-night":
+				return "../../assets/images/Moon.png";
+				break;
+			case "snow":
+				return "../../assets/images/Snow.png";
+				break;
+			case "wind":
+				return "../../assets/images/Wind.png";
+				break;
+			case "fog":
+				return "../../assets/images/Fog.png";
+				break;
+			case "cloud":
+				return "../../assets/images/Cloud.png";
+				break;
+			case "partly-cloudy-day":
+				return "../../assets/images/PartlyCloud.png";
+				break;
+			case "partly-cloudy-night":
+				return "../../assets/images/PartlyCloudNight.png";
+				break;
+			case "rain":
+			case "sleet":
+				return "../../assets/images/Rain.png";
+				break;
+			default:
+				return "../../assets/images/Default.png";
+		}
 
+	}
 
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
@@ -45,6 +79,7 @@ export default class Weather extends Component {
 		var conditions = parsed_json.currently.summary;
 		var humidity = parsed_json.currently.humidity*100 + "%";
 		var current_precip = Math.round(parsed_json.currently.precipIntensity*100) + "%";
+
 		//get current month/day/weekday
 		var date = new Date((parsed_json.currently.time)*1000);
 		var date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
@@ -72,6 +107,7 @@ export default class Weather extends Component {
 			humidity : humidity,
 			date : date,
 			precip : current_precip,
+			icon : this.setIcon(parsed_json.currently.icon),
 			hour1temp: hourly_temp[1],
 			hour2temp: hourly_temp[2],
 			hour3temp: hourly_temp[3],
@@ -99,6 +135,7 @@ export default class Weather extends Component {
 				<div class={ style.container }>
 					<div class={ style.header }>
 						<div class={ style.city }>{ this.state.locate }</div>
+						<img src= {this.state.icon}/>
 						<div class={ style.conditions }>{ this.state.cond }</div>
 						<div class={ style.conditions }>{ this.state.temp }</div>
 						<div class={ style.conditions }>{ this.state.date }</div>

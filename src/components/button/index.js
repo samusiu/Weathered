@@ -1,6 +1,6 @@
 // import preact
 import { h, render, Component } from 'preact';
-	
+
 export default class Button extends Component {
 
 	// rendering a function when the button is clicked
@@ -9,11 +9,11 @@ export default class Button extends Component {
 			clickFunction = () => {
 				console.log("passed something as 'clickFunction' that wasn't a function !");
 			}
-		}	
+		}
 		return (
 			<div>
 				<button onClick={clickFunction}>
-					Display Weather
+					Recommendations
 				</button>
 			</div>
 		);
