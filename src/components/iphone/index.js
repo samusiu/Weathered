@@ -16,10 +16,11 @@ export default class Iphone extends Component {
 	// a constructor with initial set states
 	constructor(props){
 		super(props);
-		// temperature state
-		this.state.temp = "";
-		// button display state
 		this.setState({ display: true });
+	}
+
+	changeDisplay = () => {
+		this.setState({ display: false });
 	}
 
 	render() {
