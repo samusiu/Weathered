@@ -19,7 +19,6 @@ export default class Iphone extends Component {
 		super(props);
 		this.setState({ display: true });
 		this.setState({ rec: false });
-		var map;
 	}
 
 	visualiseMap = () => {
@@ -39,7 +38,7 @@ export default class Iphone extends Component {
 			<div>
 				{this.state.rec ? null : <Weather/>}
                 { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
-				{ this.state.rec ? <Map text={this.generateMap} /> : null}
+				{ this.state.rec ? <Map text={this.visualiseMap} /> : null}
 			</div>
 		);
 	}

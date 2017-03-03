@@ -56,8 +56,7 @@ export default class Map extends Component {
 			console.log("Invalid json");
 		}
 	}
-        
-        
+
 	render() {
 		this.getPlaces();
 		return (
@@ -65,15 +64,15 @@ export default class Map extends Component {
                 <div class={style.top}>
                     <Button class={style.button} clickFunction={ this.props.text }/ >
                 </div>
-                
+
                 <div class={style.main}>
-                    <div style="height:200px" id="map" class={style.map}></div> 
-            
+                    <div style="height:200px" id="map" class={style.map}></div>
+
                     <ul class={style.recs} id="places"></ul>
                 </div>
-            
+
                 <div class={style.foot}>
-                    
+
                 </div>
             </div>
 		);
