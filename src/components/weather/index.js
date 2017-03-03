@@ -129,7 +129,7 @@ export default class Weather extends Component {
 			hour3: hourly_time[3],
 			hour4: hourly_time[4],
 			hour5: hourly_time[5], 
-            bars: "../../assets/images/Bars.png",
+            gear: "../../assets/images/Gear.png",
             dote: "../../assets/images/Empty.png",
             dot1: "../../assets/images/Filled.png",
             dot2: "../../assets/images/Filled.png",
@@ -146,7 +146,7 @@ export default class Weather extends Component {
 			return (
 				<div class={ style.container }>
                     <div class={style.top}>
-                        <img class={style.bars} src={this.state.bars}/>
+                        <img class={style.gear} src={this.state.gear}/>
                         <div class={style.dots}>
                             <img class={style.dot} src={this.state.dote}/>
                             <img class={style.dot} src={this.state.dot1}/>
