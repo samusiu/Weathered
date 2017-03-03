@@ -41,7 +41,7 @@ export default class Weather extends Component {
 				return "../../assets/images/Sun.png";
 				break;
 			case "clear-night":
-				return "../../assets/images/Moon.png";
+				return "../../assets/images/Sun.png";
 				break;
 			case "snow":
 				return "../../assets/images/Snow.png";
@@ -133,11 +133,10 @@ export default class Weather extends Component {
             dote: "../../assets/images/Empty.png",
             dot1: "../../assets/images/Filled.png",
             dot2: "../../assets/images/Filled.png",
-            dot3: "../../assets/images/Filled.png",
-            dot4: "../../assets/images/Filled.png", 
-            up: "../../assets/images/Up.png"
+            dot3: "../../assets/images/Filled.png"
 		});
 	}
+    
 
 	render() {
 			// check if temperature data is fetched, if so add the sign styling to the page
@@ -153,7 +152,6 @@ export default class Weather extends Component {
                             <img class={style.dot} src={this.state.dot1}/>
                             <img class={style.dot} src={this.state.dot2}/>
                             <img class={style.dot} src={this.state.dot3}/>
-                            <img class={style.dot} src={this.state.dot4}/>
                         </div>
                      </div>
                 
@@ -233,10 +231,9 @@ export default class Weather extends Component {
                             </div>
                         </div>
                     </div>
-                
-                    <div class={style.foot}>
-                        <img class={style.iconarrow} src={this.state.up}/>
-                    </div>
+                <div class={style.foot}>
+                    
+                </div>
 				</div>
 		);
 	}

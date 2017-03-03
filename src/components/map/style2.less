@@ -3,9 +3,7 @@
 .container {
 	flex-direction: column;
 	width: 414px;
-	height: 736px;
-}
-body{
+	height: 623px;
     background-color: #39528C;
     font-family: 'Open Sans', sans-serif;
 }
@@ -16,6 +14,13 @@ body{
     display: flex;
     color: #000;
     align-items: center;
+    z-index: 975;
+}
+.bars {
+    width:35px;
+    height:30px;
+    margin: 5px 0 0 5px;
+    z-index: 900;
 }
 .button{
     margin-left: auto;
@@ -32,6 +37,7 @@ body{
     width:414px;
     height:30px;
     background-color: #CCD4E1;
+    z-index: 900;
 }
 
 .map{
@@ -45,6 +51,7 @@ body{
     height: 325px;
     margin-bottom: 20px;
     overflow: scroll;
+    z-index: 950;
 }
 .recs li{
     color: #CCD4E1;

@@ -62,6 +62,7 @@ export default class Map extends Component {
 		return (
 			<div class={style.container}>
                 <div class={style.top}>
+                    <img class={style.bars} src="../../assets/images/Bars.png"/>
                     <Button class={style.button} clickFunction={ this.props.text }/ >
                 </div>
 

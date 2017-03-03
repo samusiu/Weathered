@@ -14,7 +14,7 @@ export default class Button extends Component {
 		return (
 			<div>
 				<button class={style.button} onClick={clickFunction}>
-					Recommendations
+                    <img class = {style.iconarrow} src="../../assets/images/Arrow.png"/>
 				</button>
 			</div>
 		);
