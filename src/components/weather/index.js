@@ -114,7 +114,7 @@ export default class Weather extends Component {
             icon : this.setIcon(parsed_json.currently.icon, true),
             hour1con : this.setIcon(parsed_json.hourly.icon, false),
             hour2con : this.setIcon(parsed_json.hourly.icon, false),
-            hour3con : this.setIcon(parsed_json.hourly.icon), false,
+            hour3con : this.setIcon(parsed_json.hourly.icon, false),
             hour4con : this.setIcon(parsed_json.hourly.icon, false),
             hour5con : this.setIcon(parsed_json.hourly.icon, false),
 			hour1temp: hourly_temp[1] + "°",
