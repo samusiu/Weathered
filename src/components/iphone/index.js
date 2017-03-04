@@ -19,6 +19,15 @@ export default class Iphone extends Component {
 		super(props);
 		this.setState({ display: true });
 		this.setState({ rec: false });
+		var weatherCondition = "";
+	}
+
+	conditionGetter = () => {
+		return this.weatherCondition;
+	}
+
+	conditionSetter = (condition) => {
+		this.weatherCondition = condition;
 	}
 
 	visualiseMap = () => {
@@ -36,9 +45,9 @@ export default class Iphone extends Component {
 	render() {
 		return (
 			<div>
-				{this.state.rec ? null : <Weather/>}
+				{this.state.rec ? null : <Weather getter={this.conditionGetter} setter={this.conditionSetter} />}
                 { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
-				{ this.state.rec ? <Map text={this.visualiseMap} /> : null}
+				{ this.state.rec ? <Map text={this.visualiseMap} getter={this.conditionGetter} setter={this.conditionSetter} /> : null}
 			</div>
 		);
 	}

@@ -35,37 +35,40 @@ export default class Weather extends Component {
 	    return (5/9) * (f-32);
 	}
 
-	setIcon = (condition) => {
+	//[string] condition based on darkskyAPI used to choose icon.
+	//[boolean] main if icon is current. Only use setter if main == true.
+	setIcon = (condition, main) => {
 		switch (condition) {
 			case "clear-day":
+				main ? this.props.setter("clear-day") : null;
 				return "../../assets/images/Sun.png";
-				break;
 			case "clear-night":
+				main ? this.props.setter("clear-night") : null;
 				return "../../assets/images/Sun.png";
-				break;
 			case "snow":
+				main ? this.props.setter("snow") : null;
 				return "../../assets/images/Snow.png";
-				break;
 			case "wind":
+				main ? this.props.setter("wind") : null;
 				return "../../assets/images/Wind.png";
-				break;
 			case "fog":
+				main ? this.props.setter("fog") : null;
 				return "../../assets/images/Fog.png";
-				break;
 			case "cloudy":
+				main ? this.props.setter("cloudy") : null;
 				return "../../assets/images/Cloud.png";
-				break;
 			case "partly-cloudy-day":
+				main ? this.props.setter("partly-cloudy-day") : null;
 				return "../../assets/images/PartlyCloud.png";
-				break;
 			case "partly-cloudy-night":
+				main ? this.props.setter("partly-cloudy-night") : null;
 				return "../../assets/images/PartlyCloud.png";
-				break;
 			case "rain":
 			case "sleet":
+				main ? this.props.setter("rain") : null;
 				return "../../assets/images/Rain.png";
-				break;
 			default:
+				main ? this.props.setter("defualt") : null;
 				return "../../assets/images/Default.png";
 		}
 
@@ -108,12 +111,12 @@ export default class Weather extends Component {
 			precip : current_precip,
             preciplabel: "Precipitation: ",
             humidlabel: "Humidity: ",
-            icon : this.setIcon(parsed_json.currently.icon),
-            hour1con : this.setIcon(parsed_json.hourly.icon),
-            hour2con : this.setIcon(parsed_json.hourly.icon),
-            hour3con : this.setIcon(parsed_json.hourly.icon),
-            hour4con : this.setIcon(parsed_json.hourly.icon),
-            hour5con : this.setIcon(parsed_json.hourly.icon),
+            icon : this.setIcon(parsed_json.currently.icon, true),
+            hour1con : this.setIcon(parsed_json.hourly.icon, false),
+            hour2con : this.setIcon(parsed_json.hourly.icon, false),
+            hour3con : this.setIcon(parsed_json.hourly.icon), false,
+            hour4con : this.setIcon(parsed_json.hourly.icon, false),
+            hour5con : this.setIcon(parsed_json.hourly.icon, false),
 			hour1temp: hourly_temp[1] + "°",
 			hour2temp: hourly_temp[2] + "°",
 			hour3temp: hourly_temp[3] + "°",
@@ -128,7 +131,7 @@ export default class Weather extends Component {
 			hour2: hourly_time[2],
 			hour3: hourly_time[3],
 			hour4: hourly_time[4],
-			hour5: hourly_time[5], 
+			hour5: hourly_time[5],
             gear: "../../assets/images/Gear.png",
             dote: "../../assets/images/Empty.png",
             dot1: "../../assets/images/Filled.png",
@@ -136,7 +139,7 @@ export default class Weather extends Component {
             dot3: "../../assets/images/Filled.png"
 		});
 	}
-    
+
 
 	render() {
 			// check if temperature data is fetched, if so add the sign styling to the page
@@ -154,9 +157,9 @@ export default class Weather extends Component {
                             <img class={style.dot} src={this.state.dot3}/>
                         </div>
                      </div>
-                
+
                     <div class={style.main}>
-                        <div  class={ style.head }> 
+                        <div  class={ style.head }>
                             <div class={style.headleft}>
                                 <div class={ style.city }>{ this.state.locate }</div>
                                 <div class={ style.date }>{ this.state.date }</div>
@@ -165,24 +168,24 @@ export default class Weather extends Component {
 						      <div class={ style.temperature }>{ this.state.temp }</div>
                             </div>
                         </div>
-                        
+
                         <div class={style.center}>
                             <img class={style.weatherimg} src={this.state.icon}/>
                             <div class={ style.condition }>{ this.state.cond }</div>
                         </div>
-                        
+
                         <div class={style.info}>
                             <div class={ style.precip }>
                                 <div class={ style.label1 }>{ this.state.preciplabel }</div>
                                 <div class={ style.text }>{ this.state.precip }</div>
-                            </div>    
+                            </div>
 
                             <div class={ style.humid }>
                                 <div class={ style.label2 }>{ this.state.humidlabel }</div>
                                 <div class={ style.text }>{ this.state.humidity }</div>
-                            </div>	
+                            </div>
                         </div>
-                        
+
                         <div class={style.hourly}>
                             <div class={style.hour}>
                                 <img class={style.smallimg} src={this.state.hour1con}/>
@@ -209,10 +212,10 @@ export default class Weather extends Component {
                                 <div class={ style.conditions }>{ this.state.hour5temp }</div>
                             </div>
                         </div>
-                
+
                         <div class={style.line}>
                         </div>
-                
+
                         <div class={style.hours}>
                             <div class={style.hour}>
                                 <div class={ style.conditions }>{ this.state.hour1 }</div>
@@ -232,7 +235,7 @@ export default class Weather extends Component {
                         </div>
                     </div>
                 <div class={style.foot}>
-                    
+
                 </div>
 				</div>
 		);

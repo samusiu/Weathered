@@ -31,6 +31,7 @@ export default class Map extends Component {
 	createMap = (parsed_json) => {
 		this.initialize(parsed_json);
 		google.maps.event.addDomListener(window, 'load', this.initialize);
+		console.log("printing " + this.props.getter());
 	}
 
 	initialize = (parsed_json) => {
