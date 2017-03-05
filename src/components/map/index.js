@@ -10,6 +10,7 @@ export default class Map extends Component {
 	constructor(props){
 		super(props);
 		var map;
+		var markers;
 	}
 
 	getPlaces = () => {
@@ -43,6 +44,7 @@ export default class Map extends Component {
 			});
 			var placesList = document.getElementById('places');
 			var place;
+			var markers = [];
 			for(var i = 0; i < parsed_json.results.length; i++){
 				place = parsed_json.results[i];
 				var placeLoc = place.geometry.location;
@@ -51,10 +53,21 @@ export default class Map extends Component {
 					position: place.geometry.location,
 					title: place.name
 				});
+				markers[i] = marker;
 				placesList.innerHTML += '<li>' + place.name + '</li>';
 			}
+			this.markers = markers;
 		}else {
 			console.log("Invalid json");
+		}
+	}
+
+	listClicked = (mouseEvent) => {
+		for(var i = 0; i < this.markers.length; i++) {
+			if(this.markers[i].title == mouseEvent.target.innerHTML) {
+				this.map.panTo(this.markers[i].getPosition());
+				break;
+			}
 		}
 	}
 
@@ -70,7 +83,7 @@ export default class Map extends Component {
                 <div class={style.main}>
                     <div style="height:200px" id="map" class={style.map}></div>
 
-                    <ul class={style.recs} id="places"></ul>
+                    <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
                 </div>
 
                 <div class={style.foot}>

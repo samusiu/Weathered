@@ -20,7 +20,7 @@ export default class Weather extends Component {
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : http://api.wunderground.com/api/key/feature/q/country-code/city.json
-		var url = "https://api.darksky.net/forecast/121d093e3ec140dade0836647833d99b/51.5074,0.1278";
+		var url = "https://api.darksky.net/forecast/2320fd004bb95c2366084514d784827e/51.5074,0.1278";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
