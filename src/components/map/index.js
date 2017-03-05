@@ -11,11 +11,16 @@ export default class Map extends Component {
 		super(props);
 		var map;
 		var markers;
+		var lat;
+		var long;
 	}
 
 	getPlaces = () => {
+		//Get current location from API or hardcode
+		this.lat = "51.5238447";
+		this.long = "-0.0404668";
 		//API info: https://developers.google.com/places/web-service/search
-		var location = '51.5238447,-0.0404668';
+		var location = this.lat + ',' + this.long;
 		var radius = '5000';
 		var type = 'park';
         var down = "../../assets/images/Down.png";
@@ -37,7 +42,7 @@ export default class Map extends Component {
 
 	initialize = (parsed_json) => {
 		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
-			var center = new google.maps.LatLng(51.526806,-0.0419017);
+			var center = new google.maps.LatLng(this.lat,this.long);
 			this.map = new google.maps.Map(document.getElementById('map'), {
 				center: center,
 				zoom: 13
@@ -53,8 +58,11 @@ export default class Map extends Component {
 					position: place.geometry.location,
 					title: place.name
 				});
+				marker.addListener('click', this.markerClicked);
 				markers[i] = marker;
+				var dist = Math.round( this.markerDistance(placeLoc) * 10) / 10;
 				placesList.innerHTML += '<li>' + place.name + '</li>';
+				console.log(place.name +" is "+ dist +" km");
 			}
 			this.markers = markers;
 		}else {
@@ -62,13 +70,57 @@ export default class Map extends Component {
 		}
 	}
 
-	listClicked = (mouseEvent) => {
-		for(var i = 0; i < this.markers.length; i++) {
-			if(this.markers[i].title == mouseEvent.target.innerHTML) {
-				this.map.panTo(this.markers[i].getPosition());
+	markerClicked = (marker) => {
+		for(var i=0; i< this.markers.length; i++){
+			if(marker.latLng == this.markers[i].position){
+				var marker = this.markers[i];
 				break;
 			}
 		}
+		var list = document.getElementById("places");
+		for(var i = 0; i<list.childElementCount; i++){
+			if(list.childNodes[i].innerHTML == marker.title) {
+				this.activateLocation(list.childNodes[i], marker);
+				break;
+			}
+		}
+	}
+
+	listClicked = (mouseEvent) => {
+		for(var i = 0; i < this.markers.length; i++) {
+			if(this.markers[i].title == mouseEvent.target.innerHTML) {
+				this.activateLocation(mouseEvent.target, this.markers[i]);
+				break;
+			}
+		}
+	}
+
+	activateLocation = (item, marker) => {
+		this.map.panTo(marker.getPosition());
+		$(item).parent().find('li').removeClass('active');
+		$(item).addClass('active');
+	}
+
+	markerDistance = (marker) => {
+		var lat1 = this.lat;
+		var lon1 = this.long;
+		var lat2 = marker.lat;
+		var lon2 = marker.lng;
+  	var R = 6371; // Radius of the earth in km
+  	var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+  	var dLon = this.deg2rad(lon2-lon1);
+  	var a =
+    	Math.sin(dLat/2) * Math.sin(dLat/2) +
+    	Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+    	Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  	var d = R * c; // Distance in km
+  	return d;
+	}
+
+	deg2rad = (deg) => {
+	  return deg * (Math.PI/180)
 	}
 
 	render() {
