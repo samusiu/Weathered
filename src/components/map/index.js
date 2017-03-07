@@ -29,7 +29,7 @@ export default class Map extends Component {
 		//API info: https://developers.google.com/places/web-service/search
 		var location = this.lat + ',' + this.long;
 		var radius = '5000';
-		var type = 'park';
+		var type = this.filterRecs;
         var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
@@ -47,13 +47,12 @@ export default class Map extends Component {
 	createMap = (parsed_json) => {
 		this.initialize(parsed_json);
 		google.maps.event.addDomListener(window, 'load', this.initialize);
-		console.log("printing " + this.props.getter());
 	}
 
-	/** Initialization for map component. 
+	/** Initialization for map component.
 	 * Sets variables and generates markers
 	 * @param parsed_json the json parsed from Google API
-	 * 
+	 *
 	 */
 	initialize = (parsed_json) => {
 		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
@@ -62,7 +61,7 @@ export default class Map extends Component {
 				center: center,
 				zoom: 13
 			});
-			var placesList = document.getElementById('places');
+			var placesList = document.getElementById("places");
 			var place;
 			var markers = [];
 			for(var i = 0; i < parsed_json.results.length; i++){
@@ -153,6 +152,33 @@ export default class Map extends Component {
 	 */
 	deg2rad = (deg) => {
 	  return deg * (Math.PI/180)
+	}
+
+	filterRecs = () => {
+		switch (this.props.getter()) {
+			case "clear-day":
+				return 'park';
+			case "clear-night":
+				return 'stadium';
+			case "snow":
+				return 'cafe';
+			case "wind":
+				return 'museum';
+			case "fog":
+				return 'gym';
+			case "cloudy":
+				return 'shopping_mall';
+			case "partly-cloudy-day":
+				return 'restaurant';
+			case "partly-cloudy-night":
+				return 'night_club';
+			case "rain":
+			case "sleet":
+				return 'movie_theater';
+			default:
+				return 'hospital';
+		}
+
 	}
 
 	render() {
