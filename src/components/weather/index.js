@@ -7,7 +7,9 @@ import $ from 'jquery';
 import Iphone from '../iphone';
 export default class Weather extends Component {
 
-	// a constructor with initial set states
+	/** Constructor with initial set states
+	 * @param props the properties of the component
+	 */
 	constructor(props){
 		super(props);
 		// temperature state
@@ -17,9 +19,12 @@ export default class Weather extends Component {
 		this.fetchWeatherData();
 	}
 
-	// a call to fetch weather data via wunderground
+	/** Call to fetch weather data via DarkSky.net
+	 * {@link https://darksky.net/poweredby/}
+	 * {@link https://darksky.net/dev/docs/response}
+	 */ 
 	fetchWeatherData = () => {
-		// API URL with a structure of : http://api.wunderground.com/api/key/feature/q/country-code/city.json
+		// API URL with a structure of : https://api.darksky.net/forecast/[key]/[latitude],[longitude]
 		var url = "https://api.darksky.net/forecast/2320fd004bb95c2366084514d784827e/51.5074,0.1278";
 		$.ajax({
 			url: url,
@@ -31,12 +36,18 @@ export default class Weather extends Component {
 		this.setState({ display: false });
 	}
 
+	/** Converts temp from fahrenheit to celcius
+	 * @param f the temperature to be converted from fahrenheit to celcius 
+	 */
 	toCelsius(f) {
 	    return (5/9) * (f-32);
 	}
 
-	//[string] condition based on darkskyAPI used to choose icon.
-	//[boolean] main if icon is current. Only use setter if main == true.
+	/** Sets weather icon according to current weather
+	 * @param condition based on darkskyAPI used to choose icon.
+	 * @param main if icon is current. Only use setter if main == true.
+	 * @return png of the image to be displayed
+	 */
 	setIcon = (condition, main) => {
 		switch (condition) {
 			case "clear-day":
@@ -73,7 +84,10 @@ export default class Weather extends Component {
 		}
 
 	}
-
+	
+	/** Parse json as returned by API call
+	 * @param parsed_json the json to be read and accessed
+	 */
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
 		var location = parsed_json.timezone;
