@@ -32,12 +32,12 @@
     color: #fff;
 }
 .foot{
-    position:absolute;
-    bottom:0;
+    position:fixed;
+    top:610px;
+    left:0;
     width:414px;
-    height:30px;
+    height:40px;
     background-color: #CCD4E1;
-    z-index: 900;
 }
 
 .map{
@@ -53,6 +53,9 @@
     overflow: scroll;
     z-index: 950;
 }
+::-webkit-scrollbar{
+    display:none;
+}
 .recs li{
     color: #CCD4E1;
     background-color:#4a6bb9;
@@ -64,15 +67,6 @@
 .recs li:hover {
     background-color: #7595BE;
 }
-.recs li:active {
+.active {
     background-color: #7595BE;
-}
-
-.iconarrow{
-    width:30px;
-    height:20px;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5px;
 }
