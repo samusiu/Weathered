@@ -14,7 +14,9 @@ import Map from '../map';
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
 
-	// a constructor with initial set states
+	/** a constructor with initial set states
+	 * @param props the properties of the component
+	 */
 	constructor(props){
 		super(props);
 		this.setState({ display: true });
@@ -22,14 +24,24 @@ export default class Iphone extends Component {
 		var weatherCondition = "";
 	}
 
+	/** Retrieves the weather condition. To be passed as props in order
+	 * to provide access across the app
+	 * @return weatherCondition the current weather condition
+	 */
 	conditionGetter = () => {
 		return this.weatherCondition;
 	}
 
+	/** Sets the weather condition. To be passed as props in order
+	 * to provide access across the app
+	 * @param condition the current weather condition to set
+	 */
 	conditionSetter = (condition) => {
 		this.weatherCondition = condition;
 	}
 
+	/** Toggles display of map component
+	 */
 	visualiseMap = () => {
 		if (this.state.rec == false) {
 			this.setState({rec : true});
