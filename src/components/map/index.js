@@ -7,6 +7,8 @@ import Iphone from '../iphone';
 import style from './style2';
 export default class Map extends Component {
 
+	/** Constructor to set initial properties of component
+	 */
 	constructor(props){
 		super(props);
 		var map;
@@ -15,6 +17,11 @@ export default class Map extends Component {
 		var long;
 	}
 
+	/** API call to retrieve map and places from Google API
+	 * on success calls createMap()
+	 * {@link https://developers.google.com/places/web-service/search}
+	 * {@link https://developers.google.com/places/web-service/supported_types}
+	 */
 	getPlaces = () => {
 		//Get current location from API or hardcode
 		this.lat = "51.5238447";
@@ -34,12 +41,20 @@ export default class Map extends Component {
         });
 	}
 
+	/** Initalizes map with parsed json from Google api with DOM listener
+	 * @param parsed_json the json parsed from Google API
+	 */
 	createMap = (parsed_json) => {
 		this.initialize(parsed_json);
 		google.maps.event.addDomListener(window, 'load', this.initialize);
 		console.log("printing " + this.props.getter());
 	}
 
+	/** Initialization for map component. 
+	 * Sets variables and generates markers
+	 * @param parsed_json the json parsed from Google API
+	 * 
+	 */
 	initialize = (parsed_json) => {
 		if(parsed_json.status == google.maps.places.PlacesServiceStatus.OK){
 			var center = new google.maps.LatLng(this.lat,this.long);
@@ -51,8 +66,8 @@ export default class Map extends Component {
 			var place;
 			var markers = [];
 			for(var i = 0; i < parsed_json.results.length; i++){
-				place = parsed_json.results[i];
-				var placeLoc = place.geometry.location;
+				place = parsed_json.results[i]; //retrieve each element in parsed json
+				var placeLoc = place.geometry.location; //retrieve location to set marker accordingly
 				var marker = new google.maps.Marker({
 					map: this.map,
 					position: place.geometry.location,
@@ -60,8 +75,8 @@ export default class Map extends Component {
 				});
 				marker.addListener('click', this.markerClicked);
 				markers[i] = marker;
-				var dist = Math.round( this.markerDistance(placeLoc) * 10) / 10;
-				placesList.innerHTML += '<li>' + place.name + '</li>';
+				var dist = Math.round( this.markerDistance(placeLoc) * 10) / 10; //distance of attraction from location
+				placesList.innerHTML += '<li>' + place.name + '</li>'; //build html list for display
 				console.log(place.name +" is "+ dist +" km");
 			}
 			this.markers = markers;
@@ -70,6 +85,9 @@ export default class Map extends Component {
 		}
 	}
 
+	/** onClick handler for markers
+	 * @param marker the map marker element
+	 */
 	markerClicked = (marker) => {
 		for(var i=0; i< this.markers.length; i++){
 			if(marker.latLng == this.markers[i].position){
@@ -86,8 +104,12 @@ export default class Map extends Component {
 		}
 	}
 
+	/** onClick handler for location list elements
+	 * @param mouseEvent click location
+	 */
 	listClicked = (mouseEvent) => {
 		for(var i = 0; i < this.markers.length; i++) {
+			//check that target of click is an element of the list
 			if(this.markers[i].title == mouseEvent.target.innerHTML) {
 				this.activateLocation(mouseEvent.target, this.markers[i]);
 				break;
@@ -95,12 +117,20 @@ export default class Map extends Component {
 		}
 	}
 
+	/** Centers map on markers location from list
+	 * @param item the clicked list item
+	 * @param marker the marker as displayed on the map
+	 */
 	activateLocation = (item, marker) => {
 		this.map.panTo(marker.getPosition());
 		$(item).parent().find('li').removeClass('active');
 		$(item).addClass('active');
 	}
 
+	/** calculates distance of place location from set/current location
+	 * @param marker the marker of the attraction location
+	 * @return d distance of place from current/set location
+	 */
 	markerDistance = (marker) => {
 		var lat1 = this.lat;
 		var lon1 = this.long;
@@ -112,13 +142,15 @@ export default class Map extends Component {
   	var a =
     	Math.sin(dLat/2) * Math.sin(dLat/2) +
     	Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
-    	Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
+    	Math.sin(dLon/2) * Math.sin(dLon/2);
   	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   	var d = R * c; // Distance in km
   	return d;
 	}
 
+	/** Conversion from regrees to radians
+	 * @param deg the degrees to be converted
+	 */
 	deg2rad = (deg) => {
 	  return deg * (Math.PI/180)
 	}
