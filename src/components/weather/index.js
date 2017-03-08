@@ -5,6 +5,11 @@ import style from './style';
 // import jquery for API calls
 import $ from 'jquery';
 import Iphone from '../iphone';
+import Button from '../button';
+import TestButton from '../testButton';
+import style_iphone from '../button/style_iphone';
+import Weekly from '../weekly';
+
 export default class Weather extends Component {
 
 	/** Constructor with initial set states
@@ -16,7 +21,13 @@ export default class Weather extends Component {
 		this.state.temp = "";
 		// button display state
 		this.setState({ display: true });
+		this.setState({weekly : false});
 		this.fetchWeatherData();
+
+		var dates = [0,1,2, 3, 4, 5];
+		var tempsMax = [6, 7, 8, 9, 10];
+		var tempsMin = [11, 12, 13, 14, 15];
+
 	}
 
 	/** Call to fetch weather data via DarkSky.net
@@ -29,7 +40,8 @@ export default class Weather extends Component {
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
-			success : this.parseResponse,
+			success : this.parseResponse, 
+			success: this.getWeeklyConditions,
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
 		// once the data grabbed, hide the button
@@ -49,6 +61,8 @@ export default class Weather extends Component {
 	 * @return png of the image to be displayed
 	 */
 	setIcon = (condition, main) => {
+		//condition = "meatballs"; //test condition
+
 		switch (condition) {
 			case "clear-day":
 				main ? this.props.setter("clear-day") : null;
@@ -64,7 +78,7 @@ export default class Weather extends Component {
 				return "../../assets/images/Wind Day.png";
 			case "fog":
 				main ? this.props.setter("fog") : null;
-				return "../../assets/images/Fog.png";
+				return "../../assets/images/Fog Day.png";
 			case "cloudy":
 				main ? this.props.setter("cloudy") : null;
 				return "../../assets/images/Cloud.png";
@@ -83,6 +97,81 @@ export default class Weather extends Component {
 				return "../../assets/images/Hazard.png";
 		}
 
+	}
+
+	/** Retrieves weather conditions for the week
+	 * @param parsed_json the parsed json file from API call
+	 * @return weeklyWeather array of weather conditons for the week
+	 */
+	getWeeklyConditions = (parsed_json) => {
+
+		//var dates = [];
+		//var tempsMax = [];
+		//var tempsMin = [];
+		var i;
+		console.log("hiii");
+		for (i = 0; i < 5; i++) {
+			console.log(i);
+			var date = new Date((parsed_json.daily.data[i].time)*1000);
+			date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
+
+			this.dates[i] = date;
+
+			var fMax = parsed_json.daily.data[i]['apparentTemperatureMax'];
+			this.tempsMax[i] = Math.round((5/9) * (fMax-32));
+
+			var fMin = parsed_json.daily.data[i]['apparentTemperatureMin'];
+			this.tempsMin[i] = Math.round((5/9) * (fMis-32));
+
+			console.log(this.tempsMin[i]);
+		}
+	}
+
+	getMax = () => {
+		return this.tempsMax;
+	}
+
+	getMin = () => {
+		return this.tempsMin;
+	}
+
+	getDates = () => {
+		return this.dates;
+	}
+
+/*
+	setWeeklyData = () => {
+		this.setState ({
+			date1 : this.props.dates[1],
+			date2 : this.props.dates[2],
+			date3 : this.props.dates[3],
+			date4 : this.props.dates[4],
+			date5 : this.props.dates[5],
+			tempMax1 : this.props.tempsMax[1],
+			tempMax2 : this.props.tempsMax[2],
+			tempMax3 : this.props.tempsMax[3],
+			tempMax4 : this.props.tempsMax[4],
+			tempMax5 : this.props.tempsMax[5],
+			tempMin1 : this.props.tempsMin[1],
+			tempMin2 : this.props.tempsMin[2],
+			tempMin3 : this.props.tempsMin[3],
+			tempMin4 : this.props.tempsMin[4],
+			tempMin5 : this.props.tempsMin[5]
+			
+		});
+	}
+	*/
+
+
+	/** Toggles weekly weather display
+	 */
+	showWeekly = () => {
+		if (this.state.weekly == false) {
+			this.setState({weekly : true});
+		}
+		else {
+			this.setState({weekly :false});
+		}
 	}
 	
 	/** Parse json as returned by API call
@@ -154,15 +243,19 @@ export default class Weather extends Component {
 		});
 	}
 
-
 	render() {
 			// check if temperature data is fetched, if so add the sign styling to the page
 			const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-
+			this.dates = [1,2,3];
+			console.log(this.dates);
 			// display all weather data
 			return (
 				<div class={ style.container }>
                     <div class={style.top}>
+					
+					<TestButton clickFunction={ this.showWeekly }/>
+					<Weekly dates={this.getDates} tempsMax={this.getMax} tempsMin={this.getMin}/>
+
                         <img class={style.gear} src={this.state.gear}/>
                         <div class={style.dots}>
                             <img class={style.dot} src={this.state.dote}/>

@@ -29,7 +29,8 @@ export default class Map extends Component {
 		//API info: https://developers.google.com/places/web-service/search
 		var location = this.lat + ',' + this.long;
 		var radius = '5000';
-		var type = this.filterRecs;
+		var type = this.filterRecs();
+		console.log("type: " + type);
         var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
@@ -155,6 +156,8 @@ export default class Map extends Component {
 	}
 
 	filterRecs = () => {
+		console.log("Getter: " + this.props.getter);
+
 		switch (this.props.getter()) {
 			case "clear-day":
 				return 'park';
@@ -187,7 +190,7 @@ export default class Map extends Component {
 			<div class={style.container}>
                 <div class={style.top}>
                     <img class={style.gear} src="../../assets/images/Gear.png"/>
-                    <Button class={style.button} clickFunction={ this.props.text }/ >
+                    <Button class={style.button} clickFunction={ this.props.text }/>
                 </div>
 
                 <div class={style.main}>
