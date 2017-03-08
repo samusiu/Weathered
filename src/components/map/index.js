@@ -193,21 +193,12 @@ export default class Map extends Component {
 
                 <div class={style.main}>
                     <div style="height:200px" id="map" class={style.map}></div>
-<<<<<<< Updated upstream
                     
                     <div class={style.lists}>
                         <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
                         <ul class={style.recs2} id="distances"></ul>
                     </div>
-            
-                    <table class={style.table}>
-                        
-                    </table>
-=======
 
-                    <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
-                    <ul class={style.recs} id="places"></ul>
->>>>>>> Stashed changes
                 </div>
 
                 <div class={style.foot}>
