@@ -45,41 +45,41 @@ export default class Weather extends Component {
 
 	/** Sets weather icon according to current weather
 	 * @param condition based on darkskyAPI used to choose icon.
-	 * @param main if icon is current. Only use setter if main == true.
+	 * @param main if icon is current. Only use conditionSetter if main == true.
 	 * @return png of the image to be displayed
 	 */
 	setIcon = (condition, main) => {
 		switch (condition) {
 			case "clear-day":
-				main ? this.props.setter("clear-day") : null;
+				main ? this.props.conditionSetter("clear-day") : null;
 				return "../../assets/images/Sun.png";
 			case "clear-night":
-				main ? this.props.setter("clear-night") : null;
+				main ? this.props.conditionSetter("clear-night") : null;
 				return "../../assets/images/Moon.png";
 			case "snow":
-				main ? this.props.setter("snow") : null;
+				main ? this.props.conditionSetter("snow") : null;
 				return "../../assets/images/Snow.png";
 			case "wind":
-				main ? this.props.setter("wind") : null;
+				main ? this.props.conditionSetter("wind") : null;
 				return "../../assets/images/Wind Day.png";
 			case "fog":
-				main ? this.props.setter("fog") : null;
+				main ? this.props.conditionSetter("fog") : null;
 				return "../../assets/images/Fog.png";
 			case "cloudy":
-				main ? this.props.setter("cloudy") : null;
+				main ? this.props.conditionSetter("cloudy") : null;
 				return "../../assets/images/Cloud.png";
 			case "partly-cloudy-day":
-				main ? this.props.setter("partly-cloudy-day") : null;
+				main ? this.props.conditionSetter("partly-cloudy-day") : null;
 				return "../../assets/images/Partly Cloudy Day.png";
 			case "partly-cloudy-night":
-				main ? this.props.setter("partly-cloudy-night") : null;
+				main ? this.props.conditionSetter("partly-cloudy-night") : null;
 				return "../../assets/images/Partly Cloudy Night.png";
 			case "rain":
 			case "sleet":
-				main ? this.props.setter("rain") : null;
+				main ? this.props.conditionSetter("rain") : null;
 				return "../../assets/images/Rain.png";
 			default:
-				main ? this.props.setter("defualt") : null;
+				main ? this.props.conditionSetter("defualt") : null;
 				return "../../assets/images/Hazard.png";
 		}
 
@@ -89,8 +89,9 @@ export default class Weather extends Component {
 	 * @param parsed_json the json to be read and accessed
 	 */
 	parseResponse = (parsed_json) => {
-        //Variables to get form URL
-				this.setState({conditions: true});
+		this.props.weeklySetter(parsed_json.daily.data);
+    //Variables to get form URL
+		this.setState({conditions: true});
 		var location = parsed_json.timezone;
 		var temp_f = parsed_json.currently.temperature;
 		var temp_c = Math.round((5/9) * (temp_f-32));

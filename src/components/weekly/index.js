@@ -18,32 +18,15 @@ export default class Weekly extends Component {
 	 */
 	constructor(props){
 		super(props);
-		this.setState({ display : true });
 	}
 
-	/** Retrieves the weekly weather conditions. Passed in as props.
-	 * @return weeklyWeather the weekly weather conditions
-	 */
-	weeklyWeather = () => {
-		return this.props.weeklyWeather;
-	}
-
-	/** Toggles display of weekly weather component
-	 */
-	visualiseWeekly = () => {
-		if (this.state.weekly == false) {
-			this.setState({weekly : true});
-		}
-		else {
-			this.setState({weekly : false});
-		}
-	}
-
-	test = () => {
-		console.log("weekly: " + this.weeklyWeather());
+	parse = () => {
+		var data = this.props.weeklyGetter();
+		console.log(data);
 	}
 
 	render() {
+		this.parse();
 		return (
 			<div></div>
 		);

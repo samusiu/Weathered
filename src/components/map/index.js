@@ -156,7 +156,7 @@ export default class Map extends Component {
 	}
 
 	filterRecs = () => {
-		switch (this.props.getter()) {
+		switch (this.props.conditionGetter()) {
 			case "clear-day":
 				return 'park';
 			case "clear-night":

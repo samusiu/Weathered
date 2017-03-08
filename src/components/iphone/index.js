@@ -10,6 +10,7 @@ import $ from 'jquery';
 import Button from '../button';
 import Weather from '../weather';
 import Map from '../map';
+import Weekly from '../weekly';
 import WeeklyButton from '../weeklyButton';
 import WeatherButton from '../weatherButton';
 
@@ -28,8 +29,9 @@ export default class Iphone extends Component {
 		var lat;
 		var long;
 		var location;
-
+		var weeklyData;
 	}
+
 	geoFindMe = () => {
 	if (navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(this.success, this.error);;
@@ -66,6 +68,14 @@ export default class Iphone extends Component {
 		this.weatherCondition = condition;
 }
 
+	weeklyDataGetter = () => {
+		return this.weeklyData;
+	}
+
+	weeklyDataSetter = (data) => {
+		this.weeklyData = data;
+	}
+
 	/** Toggles display of map component
 	 */
 	visualiseMap = () => {
@@ -90,10 +100,11 @@ export default class Iphone extends Component {
 		return (
 			<div>
 				{this.state.rec ? null : <WeeklyButton class={ style_iphone.button } clickFunction={this.visualiseWeekly} />}
-				{this.state.rec ? null : <WeatherButton clickFunction={this.visualiseWeather} />}
-				{this.state.display ? <Weather setter={this.conditionSetter} /> : null}
+				{this.state.rec ? null : <WeatherButton class={ style_iphone.button } clickFunction={this.visualiseWeather} />}
+				{this.state.display ? <Weather conditionSetter={this.conditionSetter} weeklySetter={this.weeklyDataSetter}/> : null}
         { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
-				{ this.state.rec ? <Map showMap={this.visualiseWeather} getter={this.conditionGetter} location = {this.location} lat = {this.lat} long = {this.long}/> : null}
+				{ this.state.week ? <Weekly weeklyGetter={this.weeklyDataGetter} /> : null }
+				{ this.state.rec ? <Map showMap={this.visualiseWeather} ConditionGetter={this.conditionGetter} location = {this.location} lat = {this.lat} long = {this.long}/> : null}
 			</div>
 		);
 	}
