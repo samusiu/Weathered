@@ -21,7 +21,7 @@ export default class Weekly extends Component {
 		this.setState({ display : true });
 	}
 
-	/** Retrieves the weekly weather conditions. Passed in as props. 
+	/** Retrieves the weekly weather conditions. Passed in as props.
 	 * @return weeklyWeather the weekly weather conditions
 	 */
 	weeklyWeather = () => {
@@ -45,31 +45,7 @@ export default class Weekly extends Component {
 
 	render() {
 		return (
-			<div class={ style.container }>
-			<div class={style.hour}>
-                    <div class={style.hourly}>
-                            <div class={style.hour}>
-                                <div class={ style.conditions }>{ this.state.tempMax1 }</div>
-                            </div>
-
-                            <div class={style.hour}>
-                                <div class={ style.conditions }>{ this.state.tempMax2 }</div>
-                            </div>
-
-                            <div class={style.hour}>
-                                <div class={ style.conditions }>{ this.state.tempMax3 }</div>
-                            </div>
-
-                            <div class={style.hour}>
-                                <div class={ style.conditions }>{ this.state.tempMax4 }</div>
-                            </div>
-
-                            <div class={style.hour}>
-                                <div class={ style.conditions }>{ this.state.tempMax5 }</div>
-                            </div>
-                        </div>
-            </div>
-			</div>
+			<div></div>
 		);
 	}
 }

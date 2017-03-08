@@ -10,6 +10,8 @@ import $ from 'jquery';
 import Button from '../button';
 import Weather from '../weather';
 import Map from '../map';
+import WeeklyButton from '../weeklyButton';
+import WeatherButton from '../weatherButton';
 
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
@@ -21,6 +23,7 @@ export default class Iphone extends Component {
 		super(props);
 		this.setState({ display: true });
 		this.setState({ rec: false });
+		this.setState({ week: false });
 		var weatherCondition = "";
 		var lat;
 		var long;
@@ -65,27 +68,32 @@ export default class Iphone extends Component {
 
 	/** Toggles display of map component
 	 */
-
-
 	visualiseMap = () => {
-		if (this.state.rec == false) {
 			this.setState({rec : true});
 			this.setState({display : false});
+			this.setState({week : false});
 		}
-		else {
+
+	visualiseWeather = () => {
 			this.setState({rec : false});
 			this.setState({display : true});
-
-		}
+			this.setState({week : false});
+	}
+	visualiseWeekly = () => {
+			this.setState({rec : false});
+			this.setState({display : false});
+			this.setState({week : true});
 	}
 
 	render() {
 		this.geoFindMe();
 		return (
 			<div>
-				{this.state.rec ? null : <Weather setter={this.conditionSetter} />}
-                { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
-				{ this.state.rec ? <Map text={this.visualiseMap} getter={this.conditionGetter} location = {this.location} lat = {this.lat} long = {this.long}/> : null}
+				{this.state.rec ? null : <WeeklyButton class={ style_iphone.button } clickFunction={this.visualiseWeekly} />}
+				{this.state.rec ? null : <WeatherButton clickFunction={this.visualiseWeather} />}
+				{this.state.display ? <Weather setter={this.conditionSetter} /> : null}
+        { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
+				{ this.state.rec ? <Map showMap={this.visualiseWeather} getter={this.conditionGetter} location = {this.location} lat = {this.lat} long = {this.long}/> : null}
 			</div>
 		);
 	}

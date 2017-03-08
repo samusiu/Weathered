@@ -188,12 +188,12 @@ export default class Map extends Component {
 			<div class={style.container}>
                 <div class={style.top}>
                     <img class={style.gear} src="../../assets/images/Gear.png"/>
-                    <Button class={style.button} clickFunction={ this.props.text }/ >
+                    <Button class={style.button} clickFunction={ this.props.showMap }/ >
                 </div>
 
                 <div class={style.main}>
                     <div style="height:200px" id="map" class={style.map}></div>
-                    
+
                     <div class={style.lists}>
                         <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
                         <ul class={style.recs2} id="distances"></ul>

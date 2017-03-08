@@ -2,7 +2,7 @@
 import { h, render, Component } from 'preact';
 import style from './style';
 
-export default class TestButton extends Component {
+export default class WeatherButton extends Component {
 
 	// rendering a function when the button is clicked
 	render({clickFunction}) {
@@ -13,9 +13,7 @@ export default class TestButton extends Component {
 		}
 		return (
 			<div>
-				<button class={style.button} onClick={clickFunction}>
-                    <img class = {style.iconarrow} src="../../assets/images/Arrow.png"/>
-				</button>
+				<button class={style.button} onClick={clickFunction}>Weather</button>
 			</div>
 		);
 	}
