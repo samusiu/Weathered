@@ -21,12 +21,10 @@ export default class Map extends Component {
 	 * {@link https://developers.google.com/places/web-service/supported_types}
 	 */
 	getPlaces = () => {
-		//Get current location from API or hardcode
-
 		//API info: https://developers.google.com/places/web-service/search
 		var radius = '5000';
 		var type = this.filterRecs;
-        var down = "../../assets/images/Down.png";
+    var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.props.location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
 		$.ajax({
@@ -77,7 +75,6 @@ export default class Map extends Component {
 				var dist = Math.round( this.markerDistance(placeLoc) * 10) / 10; //distance of attraction from location
 				placesList.innerHTML += '<li>' + place.name + '</li>'; //build html list for display
                 distancesList.innerHTML += '<li>' + dist +" km" + '</li>';
-				console.log(place.name +" is "+ dist +" km");
 			}
 			this.markers = markers;
 		}else {

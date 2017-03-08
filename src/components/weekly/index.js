@@ -18,17 +18,23 @@ export default class Weekly extends Component {
 	 */
 	constructor(props){
 		super(props);
+
 	}
 
 	parse = () => {
 		var data = this.props.weeklyGetter();
-		console.log(data);
+		var today = new Date();
+		for(var i = 0; i<data.length; i++){
+			today.setDate(today.getDate() + 1);
+			console.log(today.toLocaleString('en-UK', {weekday: 'long'}));
+		}
 	}
 
 	render() {
 		this.parse();
 		return (
-			<div></div>
+			<div>
+			</div>
 		);
 	}
 }
