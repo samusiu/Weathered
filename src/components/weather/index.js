@@ -55,13 +55,13 @@ export default class Weather extends Component {
 				return "../../assets/images/Sun.png";
 			case "clear-night":
 				main ? this.props.setter("clear-night") : null;
-				return "../../assets/images/Sun.png";
+				return "../../assets/images/Moon.png";
 			case "snow":
 				main ? this.props.setter("snow") : null;
 				return "../../assets/images/Snow.png";
 			case "wind":
 				main ? this.props.setter("wind") : null;
-				return "../../assets/images/Wind.png";
+				return "../../assets/images/Wind Day.png";
 			case "fog":
 				main ? this.props.setter("fog") : null;
 				return "../../assets/images/Fog.png";
@@ -70,17 +70,17 @@ export default class Weather extends Component {
 				return "../../assets/images/Cloud.png";
 			case "partly-cloudy-day":
 				main ? this.props.setter("partly-cloudy-day") : null;
-				return "../../assets/images/PartlyCloud.png";
+				return "../../assets/images/Partly Cloudy Day.png";
 			case "partly-cloudy-night":
 				main ? this.props.setter("partly-cloudy-night") : null;
-				return "../../assets/images/PartlyCloud.png";
+				return "../../assets/images/Partly Cloudy Night.png";
 			case "rain":
 			case "sleet":
 				main ? this.props.setter("rain") : null;
 				return "../../assets/images/Rain.png";
 			default:
 				main ? this.props.setter("defualt") : null;
-				return "../../assets/images/Default.png";
+				return "../../assets/images/Hazard.png";
 		}
 
 	}
