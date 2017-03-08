@@ -21,7 +21,8 @@ export default class Weekly extends Component {
 
 	}
 
-	parse = () => {
+	componentDidMount = () => {
+		var table = document.getElementById("weekdays");
 		var data = this.props.weeklyData;
 		var today = new Date();
 		var day;
@@ -35,14 +36,15 @@ export default class Weekly extends Component {
 			icon = this.props.setIcon(data[i].icon,false);
 			precip = Math.round(data[i].precipProbability * 100) + "%";
 			humid = data[i].humidity * 100 + "%";
-			console.log(day + " Precipitation: " + precip + " Humidity: " + humid);
+			console.log(day + " Precipitation: " + precip + " Humidity: " + humid + icon);
+			table.innerHTML += '<tr><td>' + day + '</dt><dt><img src=' + icon + ' alt"" height=200px width=200px/></dt><dt>' + precip + '</dt><dt>' + humid + '</dt><dt></tr>';
 		}
 	}
 
 	render() {
-		this.parse();
 		return (
 			<div>
+				<table id="weekdays"> </table>
 			</div>
 		);
 	}
