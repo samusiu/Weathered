@@ -22,6 +22,29 @@ export default class Iphone extends Component {
 		this.setState({ display: true });
 		this.setState({ rec: false });
 		var weatherCondition = "";
+		var lat;
+		var long;
+		var location;
+
+	}
+	geoFindMe = () => {
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(this.success, this.error);;
+		}
+	else {
+		console.log("Unable to get permission");
+	}
+}
+
+	success = (position) => {
+		this.lat = position.coords.latitude;
+		this.long = position.coords.longitude
+		this.location = this.lat + "," + this.long;
+		return this.location;
+		}
+
+	error = () => {
+		console.log("Unable to retrieve your location");
 	}
 
 	/** Retrieves the weather condition. To be passed as props in order
@@ -38,10 +61,12 @@ export default class Iphone extends Component {
 	 */
 	conditionSetter = (condition) => {
 		this.weatherCondition = condition;
-	}
+}
 
 	/** Toggles display of map component
 	 */
+
+
 	visualiseMap = () => {
 		if (this.state.rec == false) {
 			this.setState({rec : true});
@@ -55,11 +80,12 @@ export default class Iphone extends Component {
 	}
 
 	render() {
+		this.geoFindMe();
 		return (
 			<div>
 				{this.state.rec ? null : <Weather setter={this.conditionSetter} />}
                 { this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.visualiseMap }/ > : null }
-				{ this.state.rec ? <Map text={this.visualiseMap} getter={this.conditionGetter} /> : null}
+				{ this.state.rec ? <Map text={this.visualiseMap} getter={this.conditionGetter} location = {this.location} lat = {this.lat} long = {this.long}/> : null}
 			</div>
 		);
 	}

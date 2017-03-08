@@ -22,7 +22,7 @@ export default class Weather extends Component {
 	/** Call to fetch weather data via DarkSky.net
 	 * {@link https://darksky.net/poweredby/}
 	 * {@link https://darksky.net/dev/docs/response}
-	 */ 
+	 */
 	fetchWeatherData = () => {
 		// API URL with a structure of : https://api.darksky.net/forecast/[key]/[latitude],[longitude]
 		var url = "https://api.darksky.net/forecast/2320fd004bb95c2366084514d784827e/51.5074,0.1278";
@@ -37,7 +37,7 @@ export default class Weather extends Component {
 	}
 
 	/** Converts temp from fahrenheit to celcius
-	 * @param f the temperature to be converted from fahrenheit to celcius 
+	 * @param f the temperature to be converted from fahrenheit to celcius
 	 */
 	toCelsius(f) {
 	    return (5/9) * (f-32);
@@ -84,18 +84,19 @@ export default class Weather extends Component {
 		}
 
 	}
-	
+
 	/** Parse json as returned by API call
 	 * @param parsed_json the json to be read and accessed
 	 */
 	parseResponse = (parsed_json) => {
         //Variables to get form URL
+				this.setState({conditions: true});
 		var location = parsed_json.timezone;
 		var temp_f = parsed_json.currently.temperature;
 		var temp_c = Math.round((5/9) * (temp_f-32));
 		var conditions = parsed_json.currently.summary;
 		var humidity = parsed_json.currently.humidity*100 + "%";
-		var current_precip = Math.round(parsed_json.currently.precipIntensity*100) + "%";
+		var current_precip = Math.round(parsed_json.currently.precipProbability*100) + "%";
 		//get current month/day/weekday
 		var date = new Date((parsed_json.currently.time)*1000);
 		var date = date.toLocaleString('en-UK', {month: "long", day: 'numeric', weekday: 'long'});
@@ -150,7 +151,13 @@ export default class Weather extends Component {
             dote: "../../assets/images/Empty.png",
             dot1: "../../assets/images/Filled.png",
             dot2: "../../assets/images/Filled.png",
-            dot3: "../../assets/images/Filled.png"
+            dot3: "../../assets/images/Filled.png",
+            bars: "../../assets/images/Bars.png",
+            dote: "../../assets/images/Empty.png",
+            dot1: "../../assets/images/Filled.png",
+            dot2: "../../assets/images/Filled.png",
+            dot3: "../../assets/images/Filled.png",
+            dot4: "../../assets/images/Filled.png",
 		});
 	}
 
@@ -251,6 +258,10 @@ export default class Weather extends Component {
                 <div class={style.foot}>
 
                 </div>
+
+                    <div class={style.foot}>
+                        <img class={style.iconarrow} src={this.state.up}/>
+                    </div>
 				</div>
 		);
 	}
