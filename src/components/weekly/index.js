@@ -22,11 +22,20 @@ export default class Weekly extends Component {
 	}
 
 	parse = () => {
-		var data = this.props.weeklyGetter();
+		var data = this.props.weeklyData;
 		var today = new Date();
+		var day;
+		var icon;
+		var precip;
+		var humid;
+		console.log(data);
 		for(var i = 0; i<data.length; i++){
 			today.setDate(today.getDate() + 1);
-			console.log(today.toLocaleString('en-UK', {weekday: 'long'}));
+			day = today.toLocaleString('en-UK', {weekday: 'long'});
+			icon = this.props.setIcon(data[i].icon,false);
+			precip = Math.round(data[i].precipProbability * 100) + "%";
+			humid = data[i].humidity * 100 + "%";
+			console.log(day + " Precipitation: " + precip + " Humidity: " + humid);
 		}
 	}
 

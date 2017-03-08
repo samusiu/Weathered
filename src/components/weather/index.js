@@ -5,6 +5,9 @@ import style from './style';
 // import jquery for API calls
 import $ from 'jquery';
 import Iphone from '../iphone';
+import Weekly from '../weekly';
+import WeeklyButton from '../weeklyButton';
+import WeatherButton from '../weatherButton';
 export default class Weather extends Component {
 
 	/** Constructor with initial set states
@@ -14,9 +17,21 @@ export default class Weather extends Component {
 		super(props);
 		// temperature state
 		this.state.temp = "";
-		// button display state
 		this.setState({ display: true });
+		this.setState({ week: false });
+		var weeklyData;
 		this.fetchWeatherData();
+
+	}
+
+	visualiseWeekly = () => {
+			this.setState({display : false});
+			this.setState({week : true});
+	}
+
+	visualiseWeather = () => {
+			this.setState({display : true});
+			this.setState({week : false});
 	}
 
 	/** Call to fetch weather data via DarkSky.net
@@ -32,8 +47,6 @@ export default class Weather extends Component {
 			success : this.parseResponse,
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
-		// once the data grabbed, hide the button
-		this.setState({ display: false });
 	}
 
 	/** Converts temp from fahrenheit to celcius
@@ -89,7 +102,7 @@ export default class Weather extends Component {
 	 * @param parsed_json the json to be read and accessed
 	 */
 	parseResponse = (parsed_json) => {
-		this.props.weeklySetter(parsed_json.daily.data);
+		this.weeklyData = parsed_json.daily.data;
     //Variables to get form URL
 		this.setState({conditions: true});
 		var location = parsed_json.timezone;
@@ -169,7 +182,10 @@ export default class Weather extends Component {
 
 			// display all weather data
 			return (
-				<div class={ style.container }>
+				<div>
+				<WeeklyButton class={ style.button } clickFunction={this.visualiseWeekly} />
+				<WeatherButton class={ style.button } clickFunction={this.visualiseWeather} />
+				{this.state.display ? <div class={ style.container }>
                     <div class={style.top}>
                         <img class={style.gear} src={this.state.gear}/>
                         <div class={style.dots}>
@@ -263,6 +279,7 @@ export default class Weather extends Component {
                     <div class={style.foot}>
                         <img class={style.iconarrow} src={this.state.up}/>
                     </div>
+				</div> : <Weekly weeklyData={this.weeklyData} setIcon={this.setIcon}/> }
 				</div>
 		);
 	}
