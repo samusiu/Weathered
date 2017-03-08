@@ -63,7 +63,9 @@ export default class Map extends Component {
 				zoom: 13
 			});
 			var placesList = document.getElementById('places');
+            var distancesList = document.getElementById('distances');
 			var place;
+            var distance;
 			var markers = [];
 			for(var i = 0; i < parsed_json.results.length; i++){
 				place = parsed_json.results[i]; //retrieve each element in parsed json
@@ -77,6 +79,7 @@ export default class Map extends Component {
 				markers[i] = marker;
 				var dist = Math.round( this.markerDistance(placeLoc) * 10) / 10; //distance of attraction from location
 				placesList.innerHTML += '<li>' + place.name + '</li>'; //build html list for display
+                distancesList.innerHTML += '<li>' + dist +" km" + '</li>';
 				console.log(place.name +" is "+ dist +" km");
 			}
 			this.markers = markers;
@@ -166,8 +169,15 @@ export default class Map extends Component {
 
                 <div class={style.main}>
                     <div style="height:200px" id="map" class={style.map}></div>
-
-                    <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
+                    
+                    <div class={style.lists}>
+                        <ul class={style.recs} id="places" onClick={this.listClicked} ></ul>
+                        <ul class={style.recs2} id="distances"></ul>
+                    </div>
+            
+                    <table class={style.table}>
+                        
+                    </table>
                 </div>
 
                 <div class={style.foot}>
