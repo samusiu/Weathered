@@ -74,7 +74,7 @@ export default class Weather extends Component {
 				return "../../assets/images/Snow.png";
 			case "wind":
 				main ? this.props.conditionSetter("wind") : null;
-				return "../../assets/images/Wind Day.png";
+				return "../../assets/images/Wind_Day.png";
 			case "fog":
 				main ? this.props.conditionSetter("fog") : null;
 				return "../../assets/images/Fog.png";
@@ -83,10 +83,10 @@ export default class Weather extends Component {
 				return "../../assets/images/Cloud.png";
 			case "partly-cloudy-day":
 				main ? this.props.conditionSetter("partly-cloudy-day") : null;
-				return "../../assets/images/Partly Cloudy Day.png";
+				return "../../assets/images/Partly_Cloudy_Day.png";
 			case "partly-cloudy-night":
 				main ? this.props.conditionSetter("partly-cloudy-night") : null;
-				return "../../assets/images/Partly Cloudy Night.png";
+				return "../../assets/images/Partly_Cloudy_Night.png";
 			case "rain":
 			case "sleet":
 				main ? this.props.conditionSetter("rain") : null;
