@@ -109,7 +109,7 @@ export default class Weather extends Component {
 		this.weeklyData = parsed_json.daily.data;
     //Variables to get form URL
 		this.setState({conditions: true});
-		var location = parsed_json.timezone;
+		var location;
 		var temp_f = parsed_json.currently.temperature;
 		var temp_c = Math.round((5/9) * (temp_f-32));
 		var conditions = parsed_json.currently.summary;
@@ -136,7 +136,7 @@ export default class Weather extends Component {
 		// set states for fields so they could be rendered later on
 		//need high/low
 		this.setState({
-			locate: location,
+			locate: "Mile End",
 			temp: temp_c + "°",
 			cond : conditions,
 			humidity : humidity,
