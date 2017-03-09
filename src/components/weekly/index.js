@@ -34,14 +34,22 @@ export default class Weekly extends Component {
 		for(var i = 0; i<data.length; i++){
 			today.setDate(today.getDate() + 1);
 			day = today.toLocaleString('en-UK', {weekday: 'long'});
-            temp = Math.round(data[i].temperatureMin) + "°/" + Math.round(data[i].temperatureMax) + "°";
+            temp = Math.round(this.toCelsius(data[i].temperatureMin)) + "°/" + Math.round(this.toCelsius(data[i].temperatureMax)) + "°";
 			icon = this.props.setIcon(data[i].icon,false);
 			precip = Math.round(data[i].precipProbability * 100) + "%";
 			humid = data[i].humidity * 100 + "%";
 			console.log(day + " Precipitation: " + precip + " Humidity: " + humid + icon);
-			table.innerHTML += '<tr><td>' + day + '</td><td>' + temp + '</td><td>' + precip + '</td><td>' + humid + '</td><td><img src=' + icon + ' alt="weather"}/></td></tr>';
+			table.innerHTML += '<tr><td>' + day + '</td><td><img src=' + icon + ' alt="weather"}/></td><td>' + precip + '</td><td>' + humid + '</td><td>' + temp + '</td></tr>';
 		}
 	}
+
+	/** Converts temp from fahrenheit to celsius
+	 * @param f the temperature to be converted from fahrenheit to celsius
+	 */
+	toCelsius(f) {
+	    return (5/9) * (f-32);
+	}
+
 	componentDidMount = () => {
 		this.fillTable();
 	}
@@ -57,7 +65,7 @@ export default class Weekly extends Component {
                 </div>
 
                 <table id="weekdays" class={style.table}>
-                    <tr><th>Day</th><th>Temp</th><th>Percip</th><th>Humidity</th><th>Weather</th></tr>
+                    <tr><th>Day</th><th>Weather</th><th>Percip</th><th>Humidity</th><th>Min/Max</th></tr>
                 </table>
 
                 <div class={style.foot}>

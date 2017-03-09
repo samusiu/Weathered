@@ -53,13 +53,6 @@ export default class Weather extends Component {
 		})
 	}
 
-	/** Converts temp from fahrenheit to celcius
-	 * @param f the temperature to be converted from fahrenheit to celcius
-	 */
-	toCelsius(f) {
-	    return (5/9) * (f-32);
-	}
-
 	/** Sets weather icon according to current weather
 	 * @param condition based on darkskyAPI used to choose icon.
 	 * @param main if icon is current. Only use conditionSetter if main == true.
@@ -174,7 +167,7 @@ export default class Weather extends Component {
 				<WeeklyButton class={ style.button } clickFunction={this.visualiseWeekly} />
 				{this.state.display ? <div class={ style.container }>
                     <div class={style.top}>
-                        
+
                      </div>
 
                     <div class={style.main}>
