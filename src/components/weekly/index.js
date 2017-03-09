@@ -8,6 +8,7 @@ import $ from 'jquery';
 // import the Button component
 import Button from '../button';
 import Weather from '../weather';
+import WeatherButton from '../weatherButton';
 import Map from '../map';
 import Iphone from '../iphone';
 

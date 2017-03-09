@@ -7,7 +7,6 @@ import $ from 'jquery';
 import Iphone from '../iphone';
 import Weekly from '../weekly';
 import WeeklyButton from '../weeklyButton';
-import WeatherButton from '../weatherButton';
 export default class Weather extends Component {
 
 	/** Constructor with initial set states
@@ -25,14 +24,19 @@ export default class Weather extends Component {
 	}
 
 	visualiseWeekly = () => {
-			this.setState({display : false});
+        if (this.state.display) {
+            this.setState({display : false});
 			this.setState({week : true});
-	}
-
-	visualiseWeather = () => {
-			this.setState({display : true});
+        }
+        else {
+            this.setState({display : true});
 			this.setState({week : false});
+        }	
+	}    
+	visualiseWeather = () => {
+			
 	}
+    
 
 	/** Call to fetch weather data via DarkSky.net
 	 * {@link https://darksky.net/poweredby/}
@@ -109,7 +113,7 @@ export default class Weather extends Component {
 		var temp_f = parsed_json.currently.temperature;
 		var temp_c = Math.round((5/9) * (temp_f-32));
 		var conditions = parsed_json.currently.summary;
-		var humidity = parsed_json.currently.humidity*100 + "%";
+		var humidity = Math.round(parsed_json.currently.humidity*100) + "%";
 		var current_precip = Math.round(parsed_json.currently.precipProbability*100) + "%";
 		//get current month/day/weekday
 		var date = new Date((parsed_json.currently.time)*1000);
@@ -184,7 +188,6 @@ export default class Weather extends Component {
 			return (
 				<div>
 				<WeeklyButton class={ style.button } clickFunction={this.visualiseWeekly} />
-				<WeatherButton class={ style.button } clickFunction={this.visualiseWeather} />
 				{this.state.display ? <div class={ style.container }>
                     <div class={style.top}>
                         <img class={style.gear} src={this.state.gear}/>
@@ -279,7 +282,8 @@ export default class Weather extends Component {
                     <div class={style.foot}>
                         <img class={style.iconarrow} src={this.state.up}/>
                     </div>
-				</div> : <Weekly weeklyData={this.weeklyData} setIcon={this.setIcon}/> }
+				</div> : null}
+                {this.state.week ? <Weekly weeklyData={this.weeklyData} setIcon={this.setIcon}/> : null}
 				</div>
 		);
 	}
