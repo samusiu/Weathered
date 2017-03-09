@@ -55,7 +55,7 @@ export default class Map extends Component {
 			var center = new google.maps.LatLng(this.props.lat, this.props.long);
 			this.map = new google.maps.Map(document.getElementById('map'), {
 				center: center,
-				zoom: 13
+				zoom: 12
 			});
 			var placesList = document.getElementById('places');
             var distancesList = document.getElementById('distances');
