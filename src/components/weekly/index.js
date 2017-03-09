@@ -30,7 +30,6 @@ export default class Weekly extends Component {
         var temp;
 		var precip;
 		var humid;
-		console.log(data);
 		for(var i = 0; i<data.length; i++){
 			today.setDate(today.getDate() + 1);
 			day = today.toLocaleString('en-UK', {weekday: 'long'});
@@ -38,7 +37,6 @@ export default class Weekly extends Component {
 			icon = this.props.setIcon(data[i].icon,false);
 			precip = Math.round(data[i].precipProbability * 100) + "%";
 			humid = data[i].humidity * 100 + "%";
-			console.log(day + " Precipitation: " + precip + " Humidity: " + humid + icon);
 			table.innerHTML += '<tr><td>' + day + '</td><td><img src=' + icon + ' alt="weather"}/></td><td>' + precip + '</td><td>' + humid + '</td><td>' + temp + '</td></tr>';
 		}
 	}
@@ -65,7 +63,7 @@ export default class Weekly extends Component {
                 </div>
 
                 <table id="weekdays" class={style.table}>
-                    <tr><th>Day</th><th>Weather</th><th>Percip</th><th>Humidity</th><th>Min/Max</th></tr>
+                    <tr><th>Day</th><th>Weather</th><th>Precip</th><th>Humidity</th><th>Min/Max</th></tr>
                 </table>
 
                 <div class={style.foot}>

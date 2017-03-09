@@ -113,7 +113,7 @@ export default class Map extends Component {
 	listClicked = (mouseEvent) => {
 		for(var i = 0; i < this.markers.length; i++) {
 			//check that target of click is an element of the list
-			if(this.markers[i].title == mouseEvent.target.innerHTML) {
+			if(this.markers[i].title == mouseEvent.target.innerText) {
 				this.activateLocation(mouseEvent.target, this.markers[i]);
 				break;
 			}
