@@ -31,12 +31,12 @@ export default class Weather extends Component {
         else {
             this.setState({display : true});
 			this.setState({week : false});
-        }	
-	}    
-	visualiseWeather = () => {
-			
+        }
 	}
-    
+	visualiseWeather = () => {
+
+	}
+
 
 	/** Call to fetch weather data via DarkSky.net
 	 * {@link https://darksky.net/poweredby/}
@@ -155,11 +155,6 @@ export default class Weather extends Component {
 			hour3temp: hourly_temp[3] + "°",
 			hour4temp: hourly_temp[4] + "°",
 			hour5temp: hourly_temp[5] + "°",
-			hour1conditions: hourly_conditions[1],
-			hour2conditions: hourly_conditions[2],
-			hour3conditions: hourly_conditions[3],
-			hour4conditions: hourly_conditions[4],
-			hour5conditions: hourly_conditions[5],
 			hour1: hourly_time[1],
 			hour2: hourly_time[2],
 			hour3: hourly_time[3],

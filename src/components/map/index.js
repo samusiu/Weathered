@@ -62,6 +62,12 @@ export default class Map extends Component {
 			var place;
             var distance;
 			var markers = [];
+			new google.maps.Marker({
+				map: this.map,
+				position: {lat: this.props.lat, lng: this.props.long},
+				title: "Current Location",
+				icon: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
+			});
 			for(var i = 0; i < parsed_json.results.length; i++){
 				place = parsed_json.results[i]; //retrieve each element in parsed json
 				var placeLoc = place.geometry.location; //retrieve location to set marker accordingly
