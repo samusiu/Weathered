@@ -13,7 +13,9 @@ export default class WeeklyButton extends Component {
 		}
 		return (
 			<div>
-				<button class={style.button} onClick={clickFunction}>Weekly</button>
+				<button class={style.button} onClick={clickFunction}>
+                    <img class = {style.calendar} src="../../assets/images/Calendar.png"/>
+                </button>
 			</div>
 		);
 	}

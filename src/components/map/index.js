@@ -24,7 +24,7 @@ export default class Map extends Component {
 		//API info: https://developers.google.com/places/web-service/search
 		var radius = '5000';
 		var type = this.filterRecs;
-    var down = "../../assets/images/Down.png";
+        var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.props.location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
 		$.ajax({
@@ -190,7 +190,9 @@ export default class Map extends Component {
 		return (
 			<div class={style.container}>
                 <div class={style.top}>
-                    <img class={style.gear} src="../../assets/images/Gear.png"/>
+                    <div class={style.text}>
+                        <p>Recommendations for Today</p>
+                    </div>
                     <Button class={style.button} clickFunction={ this.props.showMap }/ >
                 </div>
 

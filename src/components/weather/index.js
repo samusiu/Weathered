@@ -160,17 +160,6 @@ export default class Weather extends Component {
 			hour3: hourly_time[3],
 			hour4: hourly_time[4],
 			hour5: hourly_time[5],
-            gear: "../../assets/images/Gear.png",
-            dote: "../../assets/images/Empty.png",
-            dot1: "../../assets/images/Filled.png",
-            dot2: "../../assets/images/Filled.png",
-            dot3: "../../assets/images/Filled.png",
-            bars: "../../assets/images/Bars.png",
-            dote: "../../assets/images/Empty.png",
-            dot1: "../../assets/images/Filled.png",
-            dot2: "../../assets/images/Filled.png",
-            dot3: "../../assets/images/Filled.png",
-            dot4: "../../assets/images/Filled.png",
 		});
 	}
 
@@ -185,13 +174,7 @@ export default class Weather extends Component {
 				<WeeklyButton class={ style.button } clickFunction={this.visualiseWeekly} />
 				{this.state.display ? <div class={ style.container }>
                     <div class={style.top}>
-                        <img class={style.gear} src={this.state.gear}/>
-                        <div class={style.dots}>
-                            <img class={style.dot} src={this.state.dote}/>
-                            <img class={style.dot} src={this.state.dot1}/>
-                            <img class={style.dot} src={this.state.dot2}/>
-                            <img class={style.dot} src={this.state.dot3}/>
-                        </div>
+                        
                      </div>
 
                     <div class={style.main}>
