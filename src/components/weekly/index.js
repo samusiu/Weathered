@@ -30,7 +30,7 @@ export default class Weekly extends Component {
         var temp;
 		var precip;
 		var humid;
-		for(var i = 0; i<data.length; i++){
+		for(var i = 1; i<data.length; i++){
 			today.setDate(today.getDate() + 1);
 			day = today.toLocaleString('en-UK', {weekday: 'long'});
             temp = Math.round(this.toCelsius(data[i].temperatureMin)) + "°/" + Math.round(this.toCelsius(data[i].temperatureMax)) + "°";

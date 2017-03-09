@@ -23,7 +23,7 @@ export default class Map extends Component {
 	getPlaces = () => {
 		//API info: https://developers.google.com/places/web-service/search
 		var radius = '5000';
-		var type = this.filterRecs;
+		var type = this.filterRecs();
         var down = "../../assets/images/Down.png";
 		//supported types here: https://developers.google.com/places/web-service/supported_types
 		var api_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.props.location+'&radius='+radius+'&type='+type+'&key=AIzaSyBiXC1s3oFkNEejJIRcMIB2E3AcUUEacH4';
