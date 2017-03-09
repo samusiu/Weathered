@@ -19,10 +19,9 @@ export default class Weekly extends Component {
 	 */
 	constructor(props){
 		super(props);
-
 	}
 
-	componentDidMount = () => {
+	fillTable = () => {
 		var table = document.getElementById("weekdays");
 		var data = this.props.weeklyData;
 		var today = new Date();
@@ -43,17 +42,24 @@ export default class Weekly extends Component {
 			table.innerHTML += '<tr><td>' + day + '</td><td>' + temp + '</td><td>' + precip + '</td><td>' + humid + '</td><td><img src=' + icon + ' alt="weather"}/></td></tr>';
 		}
 	}
+	componentDidMount = () => {
+		this.fillTable();
+	}
+
+	componentDidUpdate = () => {
+		this.fillTable();
+	}
 
 	render() {
 		return (
 			<div class={ style.container }>
                 <div class={style.top}>
                 </div>
-				
+
                 <table id="weekdays" class={style.table}>
                     <tr><th>Day</th><th>Temp</th><th>Percip</th><th>Humidity</th><th>Weather</th></tr>
                 </table>
-                
+
                 <div class={style.foot}>
                 </div>
 			</div>
