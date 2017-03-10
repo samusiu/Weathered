@@ -143,6 +143,7 @@ export default class Weather extends Component {
             hour3con : this.setIcon(parsed_json.hourly.data[3].icon, false),
             hour4con : this.setIcon(parsed_json.hourly.data[4].icon, false),
             hour5con : this.setIcon(parsed_json.hourly.data[5].icon, false),
+
 			hour1temp: hourly_temp[1] + "°",
 			hour2temp: hourly_temp[2] + "°",
 			hour3temp: hourly_temp[3] + "°",
@@ -250,11 +251,10 @@ export default class Weather extends Component {
 
                 </div>
 
-                    <div class={style.foot}>
-                        <img class={style.iconarrow} src={this.state.up}/>
-                    </div>
+
 				</div> : null}
                 {this.state.week ? <Weekly weeklyData={this.weeklyData} setIcon={this.setIcon}/> : null}
+
 				</div>
 		);
 	}
